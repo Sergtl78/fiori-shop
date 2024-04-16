@@ -1,0 +1,161 @@
+{
+  "data": {
+    "mainCategories": {
+      "data": [
+        {
+          "id": "1",
+          "attributes": {
+            "name": "Цветы",
+            "products": {
+              "data": [
+                {
+                  "id": "1"
+                },
+                {
+                  "id": "2"
+                },
+                {
+                  "id": "3"
+                },
+                {
+                  "id": "5"
+                },
+                {
+                  "id": "6"
+                },
+                {
+                  "id": "7"
+                },
+                {
+                  "id": "8"
+                },
+                {
+                  "id": "9"
+                },
+                {
+                  "id": "10"
+                },
+                {
+                  "id": "11"
+                }
+              ]
+            },
+            "categories": {
+              "data": [
+                {
+                  "id": "1",
+                  "attributes": {
+                    "name": "Роза",
+                    "sub_categories": {
+                      "data": [
+                        {
+                          "id": "1",
+                          "attributes": {
+                            "name": "Кустовая"
+                          }
+                        },
+                        {
+                          "id": "2",
+                          "attributes": {
+                            "name": "Пионовидная"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "2",
+                  "attributes": {
+                    "name": "Хризантема",
+                    "sub_categories": {
+                      "data": [
+                        {
+                          "id": "3",
+                          "attributes": {
+                            "name": "Одноголовая"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "3",
+                  "attributes": {
+                    "name": "Limonium",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "4",
+                  "attributes": {
+                    "name": "Подсолнечник",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "6",
+                  "attributes": {
+                    "name": "Тюльпан",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "7",
+                  "attributes": {
+                    "name": "Пионы",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "8",
+                  "attributes": {
+                    "name": "Герберы",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "2",
+          "attributes": {
+            "name": "Зелень",
+            "products": {
+              "data": [
+                {
+                  "id": "4"
+                }
+              ]
+            },
+            "categories": {
+              "data": [
+                {
+                  "id": "5",
+                  "attributes": {
+                    "name": "Solidago",
+                    "sub_categories": {
+                      "data": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
