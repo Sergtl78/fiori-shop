@@ -1,7 +1,4 @@
 import AppBar from '@/components/appbar'
-import Footer from '@/components/navigation/Footer'
-import MobilNavData from '@/components/navigation/MobilNavData'
-import Navbar from '@/components/navigation/Navbar'
 import { Toaster } from '@/components/ui/toaster'
 import { mark, roboto } from '@/lib/font/fonts'
 import { cn } from '@/lib/utils'
@@ -30,12 +27,10 @@ export default function RootLayout({
       >
         <Provider>
           <AppBar />
-          <Navbar />
+
           <main className='relative flex min-h-screen flex-1 flex-col font-sans'>
             {children}
           </main>
-          <Footer />
-          <MobilNavData />
           <Toaster />
         </Provider>
       </body>

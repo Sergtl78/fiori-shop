@@ -70,17 +70,17 @@ model Authenticator {
 
 model User {
   id            String    @id @default(cuid())
-  firstName     String?
+  name          String
   lastName      String?
   email         String    @unique
   password      String?
   emailVerified DateTime?
   phone         String?
   image         String?
-  avatar        Image?
   blocked       Boolean   @default(false)
-  roles         Role[]
+  role          Role?
 
+  orders        Order[]
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -92,24 +92,24 @@ model User {
 
 enum Role {
   ADMIN
-  MENEGER
   USER
 }
 
 //==============================================
 model Product {
-  id              String         @id @default(cuid())
-  sku             String         @unique
-  name            String
-  description     String
-  price           Int
-  growth          Int
-  quantity        Int
-  min_quantity    Int            @default(1)
-  delivery        DateTime
+  id           String   @id @default(cuid())
+  sku          String   @unique
+  name         String
+  slug         String   @unique
+  order        String?  @unique
+  description  String
+  price        Int
+  growth       Int
+  quantity     Int
+  min_quantity Int      @default(1)
+  delivery     DateTime
+
   images          Image[]
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
   Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
   main_categoryId String?
   Category        Category?      @relation(fields: [categoryId], references: [id])
@@ -120,64 +120,80 @@ model Product {
   vendorId        String?
   Color           Color?         @relation(fields: [colorId], references: [id])
   colorId         String?
-  collections     Colection[]
+  collections     Collection[]
+  CartItem        Cart_item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Image {
-  id        String      @id @default(cuid())
-  name      String
-  url       String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Product   Product?    @relation(fields: [productId], references: [id])
+  id   String @id @default(cuid())
+  name String @unique
+  url  String
+
+  Product   Product? @relation(fields: [productId], references: [id])
   productId String?
-  Colection Colection[]
-  user      User?       @relation(fields: [userId], references: [id])
-  userId    String?     @unique // relation scalar field (used in the `@relation` attribute above)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Main_category {
-  id             String         @id @default(cuid())
-  name           String         @unique
-  visible        Boolean        @default(true)
+  id      String  @id @default(cuid())
+  name    String  @unique
+  slug    String  @unique
+  order   String? @unique
+  visible Boolean @default(true)
+
   categories     Category[]
   sub_categories Sub_category[]
   products       Product[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id             String         @id @default(cuid())
-  name           String         @unique
-  visible        Boolean        @default(true)
-  sub_categories Sub_category[]
-  products       Product[]
+  id      String  @id @default(cuid())
+  name    String  @unique
+  order   String? @unique
+  slug    String  @unique
+  visible Boolean @default(true)
 
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  sub_categories  Sub_category[]
+  products        Product[]
   Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
   main_categoryId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Sub_category {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  visible  Boolean   @default(true)
-  products Product[]
+  id      String  @id @default(cuid())
+  name    String  @unique
+  slug    String  @unique
+  order   String? @unique
+  visible Boolean @default(true)
 
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  products        Product[]
   Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
   main_categoryId String?
   Category        Category?      @relation(fields: [categoryId], references: [id])
   categoryId      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Vendor {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  visible  Boolean   @default(true)
+  id      String  @id @default(cuid())
+  name    String  @unique
+  slug    String  @unique
+  order   String? @unique
+  visible Boolean @default(true)
+
   products Product[]
 
   createdAt DateTime @default(now())
@@ -187,7 +203,9 @@ model Vendor {
 model Color {
   id       String    @id @default(cuid())
   name     String    @unique
+  slug     String    @unique
   hex      String
+  order    String?   @unique
   visible  Boolean   @default(true)
   products Product[]
 
@@ -195,14 +213,56 @@ model Color {
   updatedAt DateTime @updatedAt
 }
 
-model Colection {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  visible  Boolean   @default(true)
+model Collection {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  slug     String  @unique
+  order    String? @unique
+  visible  Boolean @default(true)
+  discount Int?
+  icon     String?
+
   products Product[]
 
-  icon      Image    @relation(fields: [imageId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  imageId   String
+}
+
+model Order {
+  id             String @id @default(cuid())
+  total_amount   Int
+  total_quantity Int
+  status         Status @default(PENDING)
+
+  cart_items Cart_item[]
+  User       User?       @relation(fields: [userId], references: [id])
+  userId     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  PAID
+  FULFILLED
+}
+
+model Cart_item {
+  id              String  @id @default(cuid())
+  priceCartItem   Int
+  quantityProduct Int
+  orderId         String
+  Order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product         Product @relation(fields: [productId], references: [id])
+  productId       String
+}
+
+model Slider_promo {
+  id          String  @id @default(cuid())
+  title       String?
+  description String?
+  url         String?
+  image       String
 }

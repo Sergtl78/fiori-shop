@@ -1,3 +1,4 @@
+import { CartItem } from '@/app/(website)/_lib/state/cart-state'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -29,4 +30,21 @@ export function getOldPrice({
 
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('ru-RU').format(date)
+}
+
+export const getCartItemsTotal = (cart: CartItem[]) => {
+  return cart.reduce(
+    (total, item) => total + item.quantityInCart * item.min_quantity,
+    0
+  )
+}
+export const getCartTotal = (cart: CartItem[]) => {
+  return cart.reduce(
+    (total, item) =>
+      total + item.price * item.quantityInCart * item.min_quantity,
+    0
+  )
+}
+export const discountCollections = (collections: CartItem['collections']) => {
+  return collections.reduce((acc, item) => (acc += item.discount || 0), 0) ?? 0
 }

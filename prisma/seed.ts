@@ -1,142 +1,158 @@
-import { Prisma, PrismaClient } from '@prisma/client'
-import * as bcrypt from 'bcryptjs'
-import CategoriesJson from './data/categories.json'
-import ColorsJson from './data/colors.json'
-import ImagesJson from './data/images.json'
-import MainCategoriesJson from './data/mainCategories.json'
-import ProductsJson from './data/products.json'
-import SubCategoriesJson from './data/sub_categories.json'
-import VendorsJson from './data/vendor.json'
+import { PrismaClient } from '@prisma/client'
+import { mockCategories } from './mosk/categories'
+import { mockCollections } from './mosk/collection'
+import { mockColors } from './mosk/colors'
+import { mockImages } from './mosk/images'
+import { mockMain_categories } from './mosk/main_categories'
+import { mockProducts } from './mosk/products'
+import { mockSliderPromo } from './mosk/slider_promo'
+import { mockSub_categories } from './mosk/sub_categories'
+import { mockUsers } from './mosk/user'
+import { mockVendors } from './mosk/vendors'
 
 const prisma = new PrismaClient()
 
-const dataMainCategories: Prisma.Main_categoryCreateInput[] =
-  MainCategoriesJson.data.mainCategories.data.map(category => {
-    return {
-      name: category.attributes.name
-    }
-  })
-const dataCategories: Prisma.CategoryCreateInput[] =
-  CategoriesJson.data.categories.data.map(category => {
-    return {
-      name: category.attributes.name
-    }
-  })
-const dataSubCategories: Prisma.Sub_categoryCreateInput[] =
-  SubCategoriesJson.data.subCategories.data.map(category => {
-    return {
-      name: category.attributes.name
-    }
-  })
-const dataVendor: Prisma.VendorCreateInput[] =
-  VendorsJson.data.vendors.data.map(vendor => {
-    return {
-      name: vendor.attributes.name
-    }
-  })
-const dataColors: Prisma.ColorCreateInput[] = ColorsJson.data.colors.data.map(
-  color => {
-    return {
-      name: color.attributes.name,
-      hex: color.attributes.value
-    }
-  }
-)
-const dataProducts: Prisma.ProductCreateInput[] =
-  ProductsJson.data.products.data.map(product => {
-    return {
-      name: product.attributes.name,
-      sku: product.attributes.sku,
-      price: product.attributes.price,
-      quantity: product.attributes.quantity,
-      min_quantity: product.attributes.min_quantity,
-      growth: product.attributes.growth,
-      delivery: new Date(product.attributes.delivery),
-      description: product.attributes.description[0].children[0].text.toString()
-    }
-  })
-
-const dataImages: Prisma.ImageCreateInput[] =
-  ImagesJson.data.uploadFiles.data.map(image => {
-    return {
-      name: image.attributes.name,
-      url: image.attributes.url
-    }
-  })
 async function main() {
-  function hashPassword(password: string) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-  }
-  const passwordAdmin = hashPassword('qwerty')
-  const passwordBob = hashPassword('qwerty')
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@admin.ru' },
-    update: {
-      email: 'admin@admin.ru',
-      password: passwordAdmin,
-      roles: ['USER', 'ADMIN']
-    },
-    create: {
-      email: 'admin@admin.ru',
-      password: passwordAdmin,
-      roles: ['USER', 'ADMIN']
-    }
+  //Delete All
+  await prisma.$transaction([
+    prisma.user.deleteMany(),
+    prisma.main_category.deleteMany(),
+    prisma.category.deleteMany(),
+    prisma.sub_category.deleteMany(),
+    prisma.vendor.deleteMany(),
+    prisma.color.deleteMany(),
+    prisma.order.deleteMany(),
+    prisma.cart_item.deleteMany(),
+    prisma.product.deleteMany(),
+    prisma.image.deleteMany(),
+    prisma.collection.deleteMany(),
+
+    prisma.slider_promo.deleteMany()
+  ])
+  //users
+  await prisma.user.createMany({
+    data: mockUsers
   })
-  const bob = await prisma.user.upsert({
-    where: { email: 'bob@test.ru' },
-    update: {
-      email: 'bob@test.ru',
-      password: passwordBob,
-      roles: ['USER']
-    },
-    create: {
-      email: 'bob@test.ru',
-      password: passwordBob,
-      roles: ['USER']
-    }
-  })
-  console.log({ admin, bob })
+  console.log('users created')
   //Main Categories
-  /* const mainCategories = await prisma.main_category.createMany({
-    data: dataMainCategories
+  mockMain_categories.forEach(async mc => {
+    await prisma.main_category.create({ data: mc })
   })
-  console.log({ mainCategories })
 
-  //Categories
-  const categories = await prisma.category.createMany({
-    data: dataCategories
-  })
-  console.log({ categories })
+  console.log('main categories created')
 
-  //Sub Categories
-  const subCategories = await prisma.sub_category.createMany({
-    data: dataSubCategories
-  })
-  console.log({ subCategories })
+  //categories
+  for (const c of mockCategories) {
+    await prisma.category.create({
+      data: c
+    })
+  }
 
-  //Vendors
-  const vendors = await prisma.vendor.createMany({
-    data: dataVendor
-  })
-  console.log({ vendors })
+  console.log('categories created')
 
-  //Colors
-  const colors = await prisma.color.createMany({
-    data: dataColors
-  })
-  console.log({ colors }) */
+  //sub categories
+  for (const sc of mockSub_categories) {
+    await prisma.sub_category.create({
+      data: sc
+    })
+  }
 
-  //Products
-  /*  const products = await prisma.product.createMany({
-    data: dataProducts
-  })
-  console.log({ products }) */
+  console.log('sub categories created')
+
+  //vendors
+  for (const v of mockVendors) {
+    await prisma.vendor.create({
+      data: v
+    })
+  }
+
+  console.log('vendors created')
+
+  //colors
+  for (const c of mockColors) {
+    await prisma.color.create({
+      data: c
+    })
+  }
+
+  console.log('colors created')
 
   //images
-  /*  const images = await prisma.image.createMany({
-    data: dataImages
-  }) */
+  for (const i of mockImages) {
+    await prisma.image.create({
+      data: i
+    })
+  }
+
+  console.log('images created')
+
+  //products
+  for (const p of mockProducts) {
+    await prisma.product.create({
+      data: p
+    })
+  }
+
+  console.log('products created')
+
+  //collections
+  for (const c of mockCollections) {
+    await prisma.collection.create({
+      data: c
+    })
+  }
+  console.log('collections created')
+
+  //orders
+  const [coral, freedom] = await prisma.product.findMany({
+    where: {
+      OR: [{ slug: 'coral-sunset' }, { slug: 'freedom' }]
+    }
+  })
+  const quantityCoral = 1
+  const quantityFreedom = 3
+  const priceCoral = quantityCoral * coral.min_quantity * coral.price
+  const priceFreedom = quantityFreedom * freedom.min_quantity * freedom.price
+
+  await prisma.order.create({
+    data: {
+      status: 'PENDING',
+      total_amount: priceCoral + priceFreedom,
+      total_quantity:
+        quantityCoral * coral.min_quantity +
+        quantityFreedom * freedom.min_quantity,
+      User: {
+        connect: { email: 'bob@test.com' }
+      },
+      cart_items: {
+        create: [
+          {
+            quantityProduct: quantityCoral,
+            priceCartItem: priceCoral,
+            productId: coral.id
+            /* Product: {
+              connect: { slug: coral.slug }
+            } */
+          },
+          {
+            quantityProduct: quantityFreedom,
+            priceCartItem: priceFreedom,
+            productId: freedom.id
+            /* Product: {
+              connect: { slug: freedom.slug }
+            } */
+          }
+        ]
+      }
+    }
+  })
+  console.log('orders created')
+  //slider_promo
+  await prisma.slider_promo.createMany({
+    data: mockSliderPromo
+  })
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect()

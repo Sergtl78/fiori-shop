@@ -21,20 +21,18 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ],
-      "~*": [
-        "./*"
-      ],
-      "auth": [
-        "./auth.ts"
-      ],
       "@/ui/*": [
         "./src/components/ui/*"
       ],
-    }
+      "@/website*": [
+        "./src/app/website/*"
+      ],
+    },
   },
   "include": [
     "next-env.d.ts",
