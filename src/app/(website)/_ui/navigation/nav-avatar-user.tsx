@@ -11,9 +11,8 @@ import { EnterIcon } from '@radix-ui/react-icons'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import NavAvatarItem from './nav-avatar-item'
-export function AvatarUser({ user }: { user?: { id?: string } }) {
-  const session = useSession()
-  console.log(session)
+export function AvatarUser() {
+  const { data: session } = useSession()
 
   return (
     <>
@@ -23,8 +22,8 @@ export function AvatarUser({ user }: { user?: { id?: string } }) {
             {!!session ? (
               <Avatar>
                 <AvatarImage
-                  src={session.data?.user?.image || ''}
-                  alt={session.data?.user?.name || ''}
+                  src={session.user?.avatar ?? (session.user?.image || '')}
+                  alt={session.user?.name || ''}
                 />
                 <AvatarFallback>
                   <SmileIcon className='h-full w-full ' />

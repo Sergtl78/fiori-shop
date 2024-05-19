@@ -12,6 +12,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'test-for-flower.storage.yandexcloud.net',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**'
       }
     ]
   }

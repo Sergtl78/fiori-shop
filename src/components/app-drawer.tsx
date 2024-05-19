@@ -10,6 +10,7 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { DoubleArrowDownIcon } from '@radix-ui/react-icons'
 import { ReactNode } from 'react'
 
 type MobileNavProps = {
@@ -26,10 +27,11 @@ const AppDrawer = ({ children, icon, footer }: MobileNavProps) => {
       <DrawerTrigger asChild>{icon}</DrawerTrigger>
       <DrawerContent className='h-[calc(100vh-4rem)]'>
         <div className='container'>
-          <DrawerHeader>
+          <DrawerHeader className=' relative '>
+            <DoubleArrowDownIcon className='w-6 h-6 absolute -top-3 right-1/2 translate-x-1/2' />
             <div className='flex justify-between'>
               <DrawerTitle>
-                <Logo title='Fiori' />
+                <Logo />
               </DrawerTitle>
               <CloseDrawer />
             </div>

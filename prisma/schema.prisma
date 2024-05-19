@@ -11,7 +11,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  previewFeatures = ["relationJoins"]
 }
 
 model Account {
@@ -69,63 +69,57 @@ model Authenticator {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  lastName      String?
-  email         String    @unique
-  password      String?
-  emailVerified DateTime?
-  phone         String?
-  image         String?
-  blocked       Boolean   @default(false)
-  role          Role?
+  id               String    @id @default(cuid())
+  name             String
+  middleName       String?
+  lastName         String?
+  email            String    @unique
+  password         String?
+  emailVerified    DateTime?
+  phone            String?
+  tin              String?
+  personalDiscount Int       @default(0)
+  image            String?
+  avatar           String?
+  blocked          Boolean   @default(false)
+  role             Role      @default(NEW)
 
+  shops         Shop[]
   orders        Order[]
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Pre_order Pre_order[]
 }
 
 enum Role {
   ADMIN
+  MANAGER
   USER
+  NEW
+}
+
+model Shop {
+  id     String @id @default(cuid())
+  name   String
+  city   String @default("Нижний Новгород")
+  street String
+  house  String
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  orders Order[]
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Pre_order Pre_order[]
 }
 
 //==============================================
-model Product {
-  id           String   @id @default(cuid())
-  sku          String   @unique
-  name         String
-  slug         String   @unique
-  order        String?  @unique
-  description  String
-  price        Int
-  growth       Int
-  quantity     Int
-  min_quantity Int      @default(1)
-  delivery     DateTime
-
-  images          Image[]
-  Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
-  main_categoryId String?
-  Category        Category?      @relation(fields: [categoryId], references: [id])
-  categoryId      String?
-  Sub_category    Sub_category?  @relation(fields: [sub_categoryId], references: [id])
-  sub_categoryId  String?
-  Vendor          Vendor?        @relation(fields: [vendorId], references: [id])
-  vendorId        String?
-  Color           Color?         @relation(fields: [colorId], references: [id])
-  colorId         String?
-  collections     Collection[]
-  CartItem        Cart_item[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
 
 model Image {
   id   String @id @default(cuid())
@@ -140,11 +134,10 @@ model Image {
 }
 
 model Main_category {
-  id      String  @id @default(cuid())
-  name    String  @unique
-  slug    String  @unique
-  order   String? @unique
-  visible Boolean @default(true)
+  id         String  @id @default(cuid())
+  name       String  @unique
+  slug       String  @unique
+  sort_order String? @unique
 
   categories     Category[]
   sub_categories Sub_category[]
@@ -155,11 +148,10 @@ model Main_category {
 }
 
 model Category {
-  id      String  @id @default(cuid())
-  name    String  @unique
-  order   String? @unique
-  slug    String  @unique
-  visible Boolean @default(true)
+  id         String  @id @default(cuid())
+  name       String  @unique
+  sort_order String? @unique
+  slug       String  @unique
 
   sub_categories  Sub_category[]
   products        Product[]
@@ -171,28 +163,26 @@ model Category {
 }
 
 model Sub_category {
-  id      String  @id @default(cuid())
-  name    String  @unique
-  slug    String  @unique
-  order   String? @unique
-  visible Boolean @default(true)
+  id         String  @id @default(cuid())
+  name       String  @unique
+  slug       String  @unique
+  sort_order String? @unique
 
-  products        Product[]
   Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
   main_categoryId String?
   Category        Category?      @relation(fields: [categoryId], references: [id])
   categoryId      String?
+  products        Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Vendor {
-  id      String  @id @default(cuid())
-  name    String  @unique
-  slug    String  @unique
-  order   String? @unique
-  visible Boolean @default(true)
+  id         String  @id @default(cuid())
+  name       String  @unique
+  slug       String  @unique
+  sort_order String? @unique
 
   products Product[]
 
@@ -201,12 +191,12 @@ model Vendor {
 }
 
 model Color {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  slug     String    @unique
-  hex      String
-  order    String?   @unique
-  visible  Boolean   @default(true)
+  id         String  @id @default(cuid())
+  name       String  @unique
+  slug       String  @unique
+  hex        String
+  sort_order String? @unique
+
   products Product[]
 
   createdAt DateTime @default(now())
@@ -214,13 +204,12 @@ model Color {
 }
 
 model Collection {
-  id       String  @id @default(cuid())
-  name     String  @unique
-  slug     String  @unique
-  order    String? @unique
-  visible  Boolean @default(true)
-  discount Int?
-  icon     String?
+  id         String  @id @default(cuid())
+  name       String  @unique
+  slug       String  @unique
+  sort_order String? @unique
+  discount   Int?
+  icon       String?
 
   products Product[]
 
@@ -228,41 +217,180 @@ model Collection {
   updatedAt DateTime @updatedAt
 }
 
-model Order {
-  id             String @id @default(cuid())
-  total_amount   Int
-  total_quantity Int
-  status         Status @default(PENDING)
+model Product {
+  id           String  @id @default(cuid())
+  name         String  @unique
+  slug         String  @unique
+  sort_order   String? @unique
+  description  String?
+  price        Int
+  growth       Int
+  quantity     Int     @default(0)
+  min_quantity Int     @default(1)
+  visible      Boolean @default(true)
 
-  cart_items Cart_item[]
-  User       User?       @relation(fields: [userId], references: [id])
-  userId     String?
+  Main_category   Main_category? @relation(fields: [main_categoryId], references: [id])
+  main_categoryId String?
+
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  Sub_category   Sub_category? @relation(fields: [sub_categoryId], references: [id])
+  sub_categoryId String?
+
+  Vendor   Vendor? @relation(fields: [vendorId], references: [id])
+  vendorId String?
+
+  Color   Color?  @relation(fields: [colorId], references: [id])
+  colorId String?
+
+  images          Image[]
+  collections     Collection[]
+  order_items     Order_item[]
+  delivery_items  Delivery_item[]
+  pre_order_items Pre_order_item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id           String @id @default(cuid())
+  number_order Int    @unique @default(autoincrement())
+  total_items  Int
+  total_amount Int
+  total_prise  Int
+  status       Status @default(NEW)
+
+  order_items Order_item[]
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  Shop   Shop?   @relation(fields: [shopId], references: [id])
+  shopId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 enum Status {
+  NEW
   PENDING
   CONFIRMED
   PAID
   FULFILLED
+  CANCELLED
 }
 
-model Cart_item {
-  id              String  @id @default(cuid())
+model Order_item {
+  id              String @id @default(cuid())
   priceCartItem   Int
   quantityProduct Int
-  orderId         String
-  Order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  Product         Product @relation(fields: [productId], references: [id])
-  productId       String
+
+  Order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+}
+
+model Delivery {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  dateDelivery   DateTime
+  statusDelivery StatusDelivey
+
+  delivery_items Delivery_item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Delivery_item {
+  id                String   @id @default(cuid())
+  dateDelivery_item DateTime
+  quantity          Int
+  price             Int
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+
+  Delivery   Delivery? @relation(fields: [deliveryId], references: [id])
+  deliveryId String?
+
+  pre_order_items Pre_order_item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum StatusDelivey {
+  ORDERED
+  REGISTERED
+}
+
+model Pre_order {
+  id           String @id @default(cuid())
+  number_order Int    @unique @default(autoincrement())
+  total_items  Int
+  total_amount Int
+  total_prise  Int
+  status       Status @default(NEW)
+
+  pre_order_items Pre_order_item[]
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  Shop   Shop?   @relation(fields: [shopId], references: [id])
+  shopId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pre_order_item {
+  id              String @id @default(cuid())
+  priceCartItem   Int
+  quantityProduct Int
+
+  Pre_order   Pre_order? @relation(fields: [pre_orderId], references: [id], onDelete: Cascade)
+  pre_orderId String?
+
+  Delivery_item   Delivery_item? @relation(fields: [delivery_itemId], references: [id])
+  delivery_itemId String?
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+}
+
+model Page {
+  id     String  @id @default(cuid())
+  slug   String  @unique
+  name   String  @unique
+  blocks Block[]
+}
+
+model Block {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String  @unique
+  title       String?
+  description String?
+  url         String?
+  image       String?
+  sort_order  String? @unique
+
+  Page   Page?   @relation(fields: [pageId], references: [id])
+  pageId String?
 }
 
 model Slider_promo {
   id          String  @id @default(cuid())
   title       String?
   description String?
+  textColor   String  @default("#000000")
   url         String?
   image       String
 }

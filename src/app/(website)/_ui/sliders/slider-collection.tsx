@@ -17,7 +17,7 @@ type Props = {
 
 export function SliderCollection({ data }: Props) {
   return (
-    <section className='w-full container mb-4 '>
+    <section className='w-full container mb-4 gap-6 '>
       <h2>{data?.name}</h2>
       <Carousel
         opts={{

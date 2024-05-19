@@ -2,111 +2,119 @@ import { Prisma } from '@prisma/client'
 
 export const mockImages: Prisma.ImageCreateInput[] = [
   {
-    name: 'Athena.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Athena_c8adec0b0b.jpg'
+    name: 'Athena.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Athena.webp'
   },
   {
-    name: 'Antonov.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Antonov_chr_70968f5a43.jpg'
+    name: 'Antonov.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Antonov.webp'
   },
   {
-    name: 'biscue.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/biscue_4bdc749b6d.jpg'
+    name: 'Biscue.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Biscue.webp'
   },
   {
-    name: 'solidago_golden_glory.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/solidago_golden_glory_7c5a8bf426.jpg'
+    name: 'Solidago golden glory.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Solidago golden glory.webp'
   },
   {
-    name: 'heliantus_vincent_choice.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/heliantus_vincent_choice_918d4f59d2.jpg'
+    name: 'Heliantus vincent choice.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Heliantus vincent choice.webp'
   },
   {
-    name: 'statice_blue.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/statice_blue_e7e5fa59df.jpg'
+    name: 'Statice blue.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Statice blue.webp'
   },
   {
-    name: 'statice_pink.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/statice_pink_f160c359ec.jpg'
+    name: 'Statice pink.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Statice pink.webp'
   },
   {
-    name: 'Tu_royal_virgin.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/tu_royal_virgin_f5240e9d2b.jpg'
+    name: 'Tu royal virgin.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Tu royal virgin.webp'
   },
   {
-    name: 'fridom2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/fridom2_018dae2a59_6da01198e8.jpg'
+    name: 'Fridom.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom.webp'
   },
   {
-    name: 'explorer.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/explorer_9f2bd65731.jpg'
+    name: 'Fridom2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom2.webp'
   },
   {
-    name: 'explorer2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/explorer2_28f62e5a9c.jpg'
+    name: 'Fridom3.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom3.webp'
   },
   {
-    name: 'Juliet.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Juliet_695a3ffe5d.jpg'
+    name: 'Explorer.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Explorer.webp'
   },
   {
-    name: 'Juliet2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Juliet2_8790eea467.jpg'
+    name: 'Explorer2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Explorer2.webp'
   },
   {
-    name: 'Patience2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Patience2_466b611fbf.jpg'
+    name: 'Juliet.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Juliet.webp'
   },
   {
-    name: 'Patience.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Patience_0ac903d1a4.jpg'
+    name: 'Juliet2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Juliet2.webp'
   },
   {
-    name: 'Princess_Anne.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Princess_Anne_5f45e37356.jpg'
+    name: 'Patience2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Patience2.webp'
   },
   {
-    name: 'Princess_Anne2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Princess_Anne2_014fbb2f1c.jpg'
+    name: 'Patience.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Patience.webp'
   },
   {
-    name: 'English_Miss.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/English_Miss_4abafa5f94.jpg'
+    name: 'Princess Anne.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Princess Anne.webp'
   },
   {
-    name: 'Miss_America3.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Miss_America3_0a56c25edd.jpg'
+    name: 'Princess Anne2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Princess Anne2.webp'
   },
   {
-    name: 'Miss_America2.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Miss_America2_4ccd32b4fd.jpg'
+    name: 'English Miss.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/English Miss.webp'
   },
   {
-    name: 'Miss_America.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Miss_America_365ca36834.jpg'
+    name: 'Miss America3.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Miss America3.webp'
   },
   {
-    name: 'Coral_Sunset.png',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Coral_Sunset_e8de5d1742.png'
+    name: 'Miss America2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Miss America2.webp'
   },
   {
-    name: 'Coral_Sunset2.png',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Coral_Sunset2_a9f9157aba.png'
+    name: 'Miss America.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Miss America.webp'
   },
   {
-    name: 'Yellow_Gem.jpg',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Yellow_Gem_0a3b2220bc.jpg'
+    name: 'Coral Sunset.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Coral Sunset.webp'
   },
   {
-    name: 'Калинка.webp',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Kalinka_6a93c8511c.webp'
+    name: 'Coral Sunset2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Coral Sunset2.webp'
   },
   {
-    name: 'Вера.webp',
-    url: 'https://test-for-flower.storage.yandexcloud.net/Vera_ec50e3bf4e.webp'
+    name: 'Yellow Gem.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Yellow Gem.webp'
   },
   {
-    name: 'MONARCH.png',
-    url: 'https://test-for-flower.storage.yandexcloud.net/MONARCH_858ca31e97.png'
+    name: 'Kalinka.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Kalinka.webp'
+  },
+  {
+    name: 'Vera.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Vera.webp'
+  },
+  {
+    name: 'Monarch.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Monarch.webp'
   }
 ]

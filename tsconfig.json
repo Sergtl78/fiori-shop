@@ -26,19 +26,27 @@
       "@/*": [
         "./src/*"
       ],
-      "@/ui/*": [
-        "./src/components/ui/*"
+      "auth*": [
+        "./auth"
       ],
-      "@/website*": [
-        "./src/app/website/*"
+      "@/components/*": [
+        "./src/components/*"
       ],
+      "@/admin/*": [
+        "./src/app/(admin)/*"
+      ],
+      "@/website/*": [
+        "./src/app/(website)/*"
+      ]
     },
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/app/(admin)/_ui/form-items",
+    "src/app/wait-admin"
   ],
   "exclude": [
     "node_modules"

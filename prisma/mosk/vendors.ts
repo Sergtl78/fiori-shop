@@ -4,21 +4,21 @@ export const mockVendors: Prisma.VendorCreateInput[] = [
   {
     name: 'Эквадор',
     slug: 'Ecuador',
-    order: 'a'
+    sort_order: 'a'
   },
   {
     name: 'Голландия',
     slug: 'Holland',
-    order: 'b'
+    sort_order: 'b'
   },
   {
     name: 'Кения',
     slug: 'Kenya',
-    order: 'c'
+    sort_order: 'c'
   },
   {
-    name: 'Нидерланды',
-    slug: 'Netherlands',
-    order: 'd'
+    name: 'Россия',
+    slug: 'Russia',
+    sort_order: 'd'
   }
 ]

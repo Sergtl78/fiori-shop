@@ -1,6 +1,7 @@
 'use server'
 import { signIn, signOut } from 'auth'
 import { AuthError } from 'next-auth'
+import { revalidatePath } from 'next/cache'
 
 // ...
 
@@ -13,6 +14,7 @@ export async function authenticate(
 ) {
   try {
     await signIn('credentials', formData)
+    revalidatePath('/', 'layout')
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -27,4 +29,5 @@ export async function authenticate(
 }
 export async function logout() {
   await signOut()
+  revalidatePath('/', 'layout')
 }

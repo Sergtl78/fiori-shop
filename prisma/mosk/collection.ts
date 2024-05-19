@@ -4,8 +4,7 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
   {
     name: 'Акция -10%',
     slug: 'action',
-    order: 'a',
-    visible: true,
+    sort_order: 'a',
     discount: 10,
     icon: 'https://test-for-flower.storage.yandexcloud.net/sale_tag.png',
     products: {
@@ -15,7 +14,7 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
         { slug: 'english-miss' },
         { slug: 'princess-anne' },
         { slug: 'freedom' },
-        { slug: 'explore' },
+        { slug: 'explorer' },
         { slug: 'monarch' },
         { slug: 'statice-pink' }
       ]
@@ -24,8 +23,7 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
   {
     name: 'Топ продаж',
     slug: 'top-seller',
-    order: 'b',
-    visible: true,
+    sort_order: 'b',
     icon: 'https://test-for-flower.storage.yandexcloud.net/top_icon.png',
     products: {
       connect: [
@@ -33,7 +31,24 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
         { slug: 'english-miss' },
         { slug: 'princess-anne' },
         { slug: 'freedom' },
-        { slug: 'explore' },
+        { slug: 'explorer' },
+        { slug: 'monarch' },
+        { slug: 'statice-blue' },
+        { slug: 'heliantus-vincent-choice' }
+      ]
+    }
+  },
+  {
+    name: 'Обратите внимание',
+    slug: 'recommendation',
+    sort_order: 'c',
+    products: {
+      connect: [
+        { slug: 'miss-america' },
+        { slug: 'english-miss' },
+        { slug: 'princess-anne' },
+        { slug: 'freedom' },
+        { slug: 'explorer' },
         { slug: 'monarch' },
         { slug: 'statice-blue' },
         { slug: 'heliantus-vincent-choice' }

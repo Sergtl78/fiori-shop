@@ -11,7 +11,7 @@ const Separator = ({ variant = 'horizontal', className }: Props) => {
       className={cn(
         variant === 'vertical' ? 'w-px h-full' : 'w-full h-px',
         'bg-border m-2',
-        className,
+        className
       )}
     />
   )

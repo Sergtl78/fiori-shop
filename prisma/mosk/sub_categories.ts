@@ -4,21 +4,21 @@ export const mockSub_categories: Prisma.Sub_categoryCreateInput[] = [
   {
     name: 'Кустовая',
     slug: 'Bush',
-    order: 'a',
+    sort_order: 'a',
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } }
   },
   {
     name: 'Пионовидная',
     slug: 'Peony',
-    order: 'b',
+    sort_order: 'b',
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } }
   },
   {
     name: 'Одноголовая',
     slug: 'One-headed',
-    order: 'c',
+    sort_order: 'c',
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } }
   }

@@ -1,8 +1,9 @@
 'use client'
-import { getProducts, ResProductBySlug } from '@/app/(website)/_lib/api/product'
+import { getProducts } from '@/app/(website)/_lib/api/product'
 import { useCallback, useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Skeleton } from '../../../../components/ui/skeleton'
+import { ResProductBySlug } from '../../_lib/api/result-types'
 import CardProduct from './card-product'
 
 type ProductListProps = {
@@ -57,7 +58,7 @@ const ProductList = ({
   return (
     <>
       {products?.map(product => (
-        <li key={product.sku}>
+        <li key={product.slug}>
           <CardProduct data={product} />
         </li>
       ))}

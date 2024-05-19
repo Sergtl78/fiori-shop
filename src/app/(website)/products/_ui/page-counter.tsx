@@ -1,19 +1,27 @@
 'use client'
 import { AddCartIcon } from '@/components/icon/AddCart'
 import { Button } from '@/components/ui/button'
-import { discountCollections, formatPrice, getOldPrice } from '@/lib/utils'
+import { discountCollections } from '@/lib/utils'
 import { useState } from 'react'
-import { ResProductBySlug } from '../../_lib/api/product'
+import { ResProductBySlug } from '../../_lib/api/result-types'
 import { useCartStore } from '../../_lib/state/cart-state'
 
 type Props = {
   product: ResProductBySlug
+  availabilityId?: string
 }
 
 const ProductPageCounter = ({ product }: Props) => {
   const [count, setCount] = useState(1)
   const addFromCart = useCartStore(state => state.addFromCart)
   const discount = discountCollections(product.collections)
+  const maxProductCount = Math.floor(
+    product.quantity / product.min_quantity +
+      product.delivery_items.reduce(
+        (acc, item) => (acc += item.quantity / product.min_quantity),
+        0
+      )
+  )
   return (
     <div className='flex flex-col md:flex-row w-full max-w-lg justify-between items-end my-4 gap-4'>
       <div className='flex flex-row w-full items-end justify-around'>
@@ -26,12 +34,15 @@ const ProductPageCounter = ({ product }: Props) => {
           >
             <b className='text-xl'>—</b>
           </Button>
-          <div className='flex text-xl items-end  h-full text-center font-semibold px-2 '>
-            {count} x {product.min_quantity}
+          <div className='flex flex-row  gap-3 items-center h-full text-center font-semibold px-2 '>
+            <span className='text-2xl'>{count}</span>
+            <span>уп. по</span>
+            <span className='text-2xl'>{product.min_quantity}</span>
+            <span>шт.</span>
           </div>
 
           <Button
-            disabled={count >= product.quantity / product.min_quantity}
+            disabled={count >= maxProductCount}
             onClick={() => setCount(prev => prev + 1)}
             variant={'ghost'}
             size={'sm'}
@@ -39,7 +50,7 @@ const ProductPageCounter = ({ product }: Props) => {
             <b className='text-xl'>+</b>
           </Button>
         </div>
-        <div className='flex flex-col '>
+        {/*  <div className='flex flex-col '>
           {discount > 0 && (
             <div className='flex flex-row w-full items-center justify-between gap-3'>
               <span className='line-through text-sm text-muted-foreground  '>
@@ -56,7 +67,7 @@ const ProductPageCounter = ({ product }: Props) => {
               {formatPrice(product.price * count * product.min_quantity)}
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <Button
         variant='default'
@@ -64,7 +75,9 @@ const ProductPageCounter = ({ product }: Props) => {
         onClick={() => addFromCart(product, count)}
       >
         <AddCartIcon className='h-6 w-6 fill-primary-foreground ' />
-        <span>+ {count * product.min_quantity} шт.</span>
+        <span>
+          + {count} x {count * product.min_quantity} шт.
+        </span>
       </Button>
     </div>
   )

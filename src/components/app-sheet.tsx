@@ -39,7 +39,7 @@ const AppSheet = ({
         <SheetContent side={side} className={classNameSheet}>
           <SheetHeader>
             <SheetTitle>
-              <Logo title='Fiori' />
+              <Logo />
               <SheetDescription className=''>
                 Продажа цветов и растений оптом.
               </SheetDescription>

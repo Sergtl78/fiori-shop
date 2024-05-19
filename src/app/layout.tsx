@@ -1,4 +1,3 @@
-import AppBar from '@/components/appbar'
 import { Toaster } from '@/components/ui/toaster'
 import { mark, roboto } from '@/lib/font/fonts'
 import { cn } from '@/lib/utils'
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Цветы на любой вкус, оптом в Нижнем Новгороде'
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
@@ -26,8 +25,6 @@ export default function RootLayout({
         )}
       >
         <Provider>
-          <AppBar />
-
           <main className='relative flex min-h-screen flex-1 flex-col font-sans'>
             {children}
           </main>

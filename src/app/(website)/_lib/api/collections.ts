@@ -2,11 +2,13 @@
 import prisma from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { productInclude } from './result-types'
-//import { productInclude } from './product'
 
 const collectionsInclude = {
   products: {
-    include: productInclude
+    include: productInclude,
+    where: {
+      visible: true
+    }
   }
 } satisfies Prisma.CollectionInclude
 
@@ -14,8 +16,19 @@ export type ResCollections = Prisma.CollectionGetPayload<{
   include: typeof collectionsInclude
 }>
 
-export const getCollections = async () => {
+type GetCollectionsProps = {
+  collectionsSlugs?: string[]
+}
+export const getCollections = async ({
+  collectionsSlugs
+}: GetCollectionsProps) => {
+  const slugsOr = collectionsSlugs?.map(slug => {
+    return { slug: slug }
+  })
   const collections = await prisma.collection.findMany({
+    where: {
+      OR: slugsOr
+    },
     include: collectionsInclude
   })
   return collections

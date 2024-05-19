@@ -1,14 +1,14 @@
 'use client'
 
-import { ResProductBySlug } from '@/app/(website)/_lib/api/product'
-import MediaImage from '@/components/media=Image'
+import MediaImage from '@/components/media-Image'
+import { Image } from '@prisma/client'
 import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Thumb } from './carousel-thumb'
 
 type PropType = {
-  slides: ResProductBySlug['images']
+  slides: Image[]
   options?: EmblaOptionsType
 }
 

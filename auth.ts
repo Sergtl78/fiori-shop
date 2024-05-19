@@ -1,4 +1,3 @@
-import { getUserByEmail } from '@/app/(website)/_lib/api/user'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcryptjs'
@@ -23,6 +22,10 @@ declare module 'next-auth/jwt' {
 declare module 'next-auth' {
   interface User {
     role?: string
+    tin?: string | null
+    blocked?: boolean | null
+    avatar?: string | null
+    personalDiscount?: number
   }
   interface Session {
     user: {
@@ -37,7 +40,7 @@ const googleConfig = Google({
       name: profile.name,
       email: profile.email,
       image: profile.picture,
-      role: profile.role ?? 'USER'
+      role: profile.role ?? 'NEW'
     }
   },
   allowDangerousEmailAccountLinking: true
@@ -61,7 +64,11 @@ const credentialsConfig = CredentialsProvider({
     if (parsedCredentials.success) {
       const { email, password: passwordCredentials } = parsedCredentials.data
 
-      const user = await getUserByEmail(email)
+      const user = await prisma.user.findUnique({
+        where: {
+          email
+        }
+      })
       console.log('user', user)
       if (!user) {
         throw new Error('User name or password is not correct')
@@ -104,13 +111,22 @@ const config = {
     jwt({ token, user }) {
       if (user) {
         token.user = user
-
+        token.user.id = user.id
+        token.user.tin = user.tin
         token.user.role = user.role
+        token.user.blocked = user.blocked
+        token.user.avatar = user.avatar
+        token.user.personalDiscount = user.personalDiscount
       }
       return token
     },
     session({ session, token }) {
+      session.user.id = token.user?.id || ''
       session.user.role = token.user?.role
+      session.user.tin = token.user?.tin
+      session.user.blocked = token.user?.blocked
+      session.user.avatar = token.user?.avatar
+      session.user.personalDiscount = token.user?.personalDiscount
       return session
     }
   }

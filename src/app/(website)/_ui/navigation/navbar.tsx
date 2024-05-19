@@ -1,16 +1,17 @@
-import CartSheet from '@/app/(website)/cart/_ui/cart-sheet'
 import Logo from '@/components/logo'
 import { ModeToggle } from '@/components/mode-toggle'
 import NavMenu from '@/components/nav-menu'
 import { auth } from 'auth'
 import { getMainCategories } from '../../_lib/api/main_category'
-import CartItemBadge from '../../cart/_ui/cart-item-badge'
+import CartItemBadge from '../cart/cart-item-badge'
+import CartSheet from '../cart/cart-sheet'
 import MenuSheet from './menu-sheet'
 import { AvatarUser } from './nav-avatar-user'
 
 const Navbar = async () => {
   const session = await auth()
   const user = session?.user
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'MANAGER'
 
   const mainCategories = await getMainCategories()
   const mainMenu = mainCategories?.map(category => {
@@ -31,14 +32,29 @@ const Navbar = async () => {
         <div className='container flex items-center justify-between'>
           <div className='flex flex-row items-center gap-8 ml-4'>
             <MenuSheet />
-            <Logo title='Фиори' />
+            <Logo className='h-8' />
+
+            {isAdmin && (
+              <NavMenu
+                menu={[
+                  {
+                    name: 'CMS',
+                    url: '/cms'
+                  },
+                  {
+                    name: 'CRM',
+                    url: '/crm'
+                  }
+                ]}
+              />
+            )}
           </div>
           <NavMenu menu={mainMenu} />
           <div className='flex flex-row items-center gap-4'>
             <CartItemBadge>
               <CartSheet />
             </CartItemBadge>
-            <AvatarUser user={user} />
+            <AvatarUser />
             <ModeToggle />
           </div>
         </div>

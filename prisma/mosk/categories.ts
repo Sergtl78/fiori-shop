@@ -4,57 +4,49 @@ export const mockCategories: Prisma.CategoryCreateInput[] = [
   {
     name: 'Розы',
     slug: 'roses',
-    visible: true,
-    order: 'a',
+    sort_order: 'a',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Хризантемы',
     slug: 'chrysanthemum',
-    visible: true,
-    order: 'b',
+    sort_order: 'b',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Лимониумы',
     slug: 'limoniums',
-    visible: true,
-    order: 'c',
+    sort_order: 'c',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Подсолнечники',
     slug: 'sunflower',
-    visible: true,
-    order: 'd',
+    sort_order: 'd',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Solidago',
     slug: 'solidago',
-    visible: true,
-    order: 'e',
+    sort_order: 'e',
     Main_category: { connect: { slug: 'greens' } }
   },
   {
     name: 'Тюльпаны',
     slug: 'tulip',
-    visible: true,
-    order: 'f',
+    sort_order: 'f',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Пионы',
     slug: 'pions',
-    visible: true,
-    order: 'g',
+    sort_order: 'g',
     Main_category: { connect: { slug: 'flowers' } }
   },
   {
     name: 'Герберы',
     slug: 'gerbers',
-    visible: true,
-    order: 'h',
+    sort_order: 'h',
     Main_category: { connect: { slug: 'flowers' } }
   }
 ]

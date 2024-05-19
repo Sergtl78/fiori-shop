@@ -40,7 +40,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <CollectionsList />
+      <CollectionsList collectionsSlugs={['action', 'top-seller']} />
     </div>
   )
 }

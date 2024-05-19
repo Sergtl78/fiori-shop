@@ -1,18 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
-
-const productInclude = {
-  collections: true,
-  images: true,
-  Main_category: { select: { slug: true } },
-  Category: { select: { slug: true } },
-  Sub_category: { select: { slug: true } }
-} satisfies Prisma.ProductInclude
-
-export type ResProductBySlug = Prisma.ProductGetPayload<{
-  include: typeof productInclude
-}>
+import { productInclude, ResProductBySlug } from './result-types'
 
 type GetProductsArgs = {
   main_category_slug?: string
@@ -61,10 +49,13 @@ export const getProducts = async (
         Color: { OR: color_slugArray },
         name: {
           contains: search
-        }
+        },
+        visible: true
       },
+
       orderBy: {
-        price: priceOrder
+        price: priceOrder,
+        
       },
       skip,
       take: limit
@@ -88,12 +79,15 @@ export const getProductBySlug = async (
   })
   return product
 }
-
-export const productUpdate = async () => {
-  const products = await prisma.product.update({
+export const getProductsBySlugCategory = async (slug?: string) => {
+  const res = await prisma.product.findMany({
     where: {
-      id: '1'
+      Category: {
+        slug
+      },
+      visible: true
     },
-    data: {}
+    include: productInclude
   })
+  return res
 }

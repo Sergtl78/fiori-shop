@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { authenticate } from '../_lib/actions'
@@ -50,9 +49,9 @@ export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const loginError = await authenticate(data)
     setLoginError(loginError)
-    /* if (!loginError) {
-      router.push(callbackUrl ?? 'http://localhost:3000')
-    } */
+    if (!loginError) {
+      router.push(/* callbackUrl ?? */ '/')
+    }
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -111,8 +110,6 @@ export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
         >
           Войти
         </Button>
-
-        
       </form>
     </Form>
   )
