@@ -96,7 +96,7 @@ const FormIconCollection = ({
         {files.length > 0 ? (
           <div
             key={files[0]?.name}
-            className='relative w-32 h-32   shadow-lg items-center justify-center'
+            className='relative w-32 h-32 rounded-lg  shadow-lg items-center justify-center'
           >
             <Image
               src={files[0].preview}
@@ -120,7 +120,7 @@ const FormIconCollection = ({
             </Button>
           </div>
         ) : (
-          <div className='relative flex  items-center justify-center w-32 h-32   border-2 border-dashed border-muted-foreground'>
+          <div className='relative flex  items-center justify-center w-32 h-32 rounded-lg   border-2 border-dashed border-muted-foreground'>
             {collectionIcon && (
               <Image
                 src={collectionIcon}
@@ -128,10 +128,10 @@ const FormIconCollection = ({
                 priority={false}
                 fill
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 25vw'
-                className='object-cover rounded-full'
+                className='object-cover  '
               />
             )}
-            <DownloadIcon className='absolute -top-6 left-1/2 -translate-x-1/2  w-5 h-5 fill-current' />
+            <DownloadIcon className='  w-5 h-5 fill-current' />
           </div>
         )}
         <p className='my-2  text-[12px] font-medium'>{files[0]?.name}</p>

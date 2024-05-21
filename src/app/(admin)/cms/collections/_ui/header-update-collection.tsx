@@ -5,7 +5,7 @@ import { Card, CardHeader } from '@/components/ui/card'
 import { Pencil2Icon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import { ResCollection } from '../_lib/api/collection'
-import { CollectionUpdateForm } from './form-color-update'
+import { CollectionUpdateForm } from './form-collection-update'
 
 type Props = {
   data: ResCollection
