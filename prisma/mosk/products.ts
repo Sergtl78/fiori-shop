@@ -45,7 +45,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Ecuador' } },
     Color: { connect: { slug: 'white' } },
     images: { connect: { name: 'Athena.webp' } }
@@ -62,7 +62,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 25,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'chrysanthemum' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Ecuador' } },
     Color: { connect: { slug: 'white' } },
     images: { connect: { name: 'Antonov.webp' } }
@@ -79,7 +79,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 15,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'Bush' } },
+    Sub_category: { connect: { slug: 'bush' } },
     Vendor: { connect: { slug: 'Ecuador' } },
     Color: { connect: { slug: 'pink' } },
     images: { connect: { name: 'Biscue.webp' } }
@@ -96,7 +96,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'gerbers' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Ecuador' } },
     Color: { connect: { slug: 'pink' } },
     images: { connect: { name: 'Kalinka.webp' } }
@@ -193,7 +193,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'red' } },
     images: {
@@ -216,7 +216,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'Bush' } },
+    Sub_category: { connect: { slug: 'bush' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'dark-red' } },
     images: {
@@ -235,7 +235,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 25,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'Peony' } },
+    Sub_category: { connect: { slug: 'peony' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'pink' } },
     images: { connect: [{ name: 'Juliet.webp' }, { name: 'Juliet2.webp' }] }
@@ -252,7 +252,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'pink' } },
     images: { connect: [{ name: 'Patience.webp' }, { name: 'Patience2.webp' }] }
@@ -269,7 +269,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 50,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Kenya' } },
     Color: { connect: { slug: 'yellow' } },
     images: {
@@ -277,7 +277,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     }
   },
   {
-    name: 'English Miss.',
+    name: 'English Miss',
     slug: 'english-miss',
     sort_order: 'q',
     description:
@@ -288,7 +288,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'pink' } },
     images: { connect: [{ name: 'English Miss.webp' }] }
@@ -305,7 +305,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 10,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Holland' } },
     Color: { connect: { slug: 'beige' } },
     images: {
@@ -328,7 +328,7 @@ export const mockProducts: Prisma.ProductCreateInput[] = [
     min_quantity: 15,
     Main_category: { connect: { slug: 'flowers' } },
     Category: { connect: { slug: 'roses' } },
-    Sub_category: { connect: { slug: 'One-headed' } },
+    Sub_category: { connect: { slug: 'one-head' } },
     Vendor: { connect: { slug: 'Kenya' } },
     Color: { connect: { slug: 'pink' } },
     images: {

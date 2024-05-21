@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { mockCategories } from './mosk/categories'
 import { mockCollections } from './mosk/collection'
 import { mockColors } from './mosk/colors'
+import { mockImages } from './mosk/images'
 import { mockMain_categories } from './mosk/main_categories'
 import { mockProducts } from './mosk/products'
 import { mockShopUsers } from './mosk/shop'
@@ -25,7 +26,7 @@ async function main() {
     prisma.order.deleteMany(),
     prisma.product.deleteMany(),
     prisma.collection.deleteMany(),
-
+    prisma.image.deleteMany(),
     prisma.slider_promo.deleteMany()
   ])
 
@@ -36,9 +37,7 @@ async function main() {
   console.log('users shop created')
 
   //users
-  /*  mockUsers.forEach(async u => {
-    await prisma.user.create({ data: u })
-  }) */
+
   for (const u of mockUsers) {
     await prisma.user.create({
       data: u
@@ -47,9 +46,7 @@ async function main() {
   console.log('users created')
 
   //Main Categories
-  /*  mockMain_categories.forEach(async mc => {
-    await prisma.main_category.create({ data: mc })
-  }) */
+
   for (const mc of mockMain_categories) {
     await prisma.main_category.create({
       data: mc
@@ -94,13 +91,13 @@ async function main() {
   console.log('colors created')
 
   //images
-  /*  for (const i of mockImages) {
+  for (const i of mockImages) {
     await prisma.image.create({
       data: i
     })
   }
 
-  console.log('images created') */
+  console.log('images created')
 
   //products
   for (const p of mockProducts) {
@@ -119,10 +116,6 @@ async function main() {
   }
   console.log('collections created')
 
-  //orders
-  /*  mockOrders.forEach(async o => {
-    await prisma.order.create({ data: o })
-  }) */
   //slider_promo
   await prisma.slider_promo.createMany({
     data: mockSliderPromo

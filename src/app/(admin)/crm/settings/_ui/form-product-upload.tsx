@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
 import { Cross2Icon, DownloadIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { productsCreate } from '../_lib/api/products-create'
@@ -14,6 +15,7 @@ type SaveFile = File & {
   preview: string
 }
 const FormProductUpload = ({ className, userId }: FormImageProps) => {
+  const router = useRouter()
   const [files, setFiles] = useState<SaveFile[]>([])
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -62,20 +64,23 @@ const FormProductUpload = ({ className, userId }: FormImageProps) => {
       formData.append('file', file)
     }
 
-    setUploading(true)
-    const response = await productsCreate({ initialState, formData: formData })
-    console.log('response', response)
-    setFiles([])
-    if (response?.status === 'success') {
+    try {
+      setUploading(true)
+      const response = await productsCreate({
+        initialState,
+        formData: formData
+      })
       setUploading(false)
+      router.refresh()
       return toast({
-        title: response?.message,
+        title: 'Товары добавлены',
         variant: 'success'
       })
-    } else {
+    } catch (error) {
+      console.log('productsCreate error', error)
       setUploading(false)
       return toast({
-        title: response?.message,
+        title: 'Товары не добавлены',
         variant: 'destructive'
       })
     }

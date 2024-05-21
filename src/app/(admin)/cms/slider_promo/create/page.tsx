@@ -7,7 +7,7 @@ const CreateVendorPageCMS = (props: Props) => {
   return (
     <div className='flex w-full flex-col mx-auto py-10 px-6 gap-6'>
       <ButtonBack />
-      <div className='flex max-w-sm w-full'>
+      <div className='flex  w-full'>
         <SlidePromoForm />
       </div>
     </div>

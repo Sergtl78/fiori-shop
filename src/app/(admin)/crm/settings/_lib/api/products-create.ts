@@ -40,16 +40,17 @@ export const productsCreate = async ({
   for (let product of data) {
     const res = await prisma.product.upsert({
       where: {
-        slug: slug(product.name)
+        slug: slug(product.name, { lower: true, replacement: '-' })
       },
       create: {
         name: product.name,
+        slug: slug(product.name, { lower: true, replacement: '-' }),
         description: product.description,
         growth: product.grow,
         quantity: product.quantity,
         min_quantity: product.min_quantity,
         price: product.price,
-        slug: slug(product.name, { lower: true, replacement: '-' }),
+
         Main_category: { connect: { slug: product.main_category } },
         Category: { connect: { slug: product.category } },
         Sub_category: { connect: { slug: product.sub_category } },
@@ -75,12 +76,12 @@ export const productsCreate = async ({
         }
       },
       update: {
-        name: product.name,
         description: product.description,
         growth: product.grow,
         quantity: product.quantity,
         min_quantity: product.min_quantity,
         price: product.price,
+
         images: {
           connectOrCreate: {
             where: { name: `${product.image}.webp` },

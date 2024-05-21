@@ -34,16 +34,16 @@ export const mockImages: Prisma.ImageCreateInput[] = [
     url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Tu royal virgin.webp'
   },
   {
-    name: 'Fridom.webp',
-    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom.webp'
+    name: 'Freedom.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Freedom.webp'
   },
   {
-    name: 'Fridom2.webp',
-    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom2.webp'
+    name: 'Freedom2.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Freedom2.webp'
   },
   {
-    name: 'Fridom3.webp',
-    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Fridom3.webp'
+    name: 'Freedom3.webp',
+    url: 'https://test-for-flower.storage.yandexcloud.net/flowers/Freedom3.webp'
   },
   {
     name: 'Explorer.webp',

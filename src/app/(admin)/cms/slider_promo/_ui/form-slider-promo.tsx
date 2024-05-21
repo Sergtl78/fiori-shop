@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -16,7 +16,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useRef } from 'react'
 import { createSlidePromo } from '../_lib/api/slider_promo'
 
 const FormSchema = z.object({
@@ -48,6 +51,7 @@ const FormSchema = z.object({
 })
 
 export function SlidePromoForm() {
+  const refId = useRef<string | null>(null)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -64,6 +68,7 @@ export function SlidePromoForm() {
         ...data,
         image: '/slide-default.png'
       })
+      refId.current = res.id
       router.refresh()
       return toast({
         variant: 'success',
@@ -79,74 +84,91 @@ export function SlidePromoForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-2'>
-        <h3 className=''>Создание главного слайдера</h3>
-        <FormField
-          control={form.control}
-          name='title'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Заголовок</FormLabel>
-              <FormControl>
-                <Input placeholder='Заголовок...' {...field} />
-              </FormControl>
-              <FormDescription>Заголовок слайда.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <section className='w-full max-w-lg flex flex-col gap-6'>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='w-full space-y-2'
+        >
+          <h3 className=''>Создание главного слайдера</h3>
+          <FormField
+            control={form.control}
+            name='title'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Заголовок</FormLabel>
+                <FormControl>
+                  <Input placeholder='Заголовок...' {...field} />
+                </FormControl>
+                <FormDescription>Заголовок слайда.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name='description'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Описание</FormLabel>
-              <FormControl>
-                <Input placeholder='Описание...' {...field} />
-              </FormControl>
-              <FormDescription>Описание акции</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='textColor'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Цвет</FormLabel>
-              <FormControl>
-                <Input
-                  type='color'
-                  placeholder='...'
-                  {...field}
-                  className='w-20 h-10 rounded-full p-0 border-none ring-0 focus:ring-0'
-                />
-              </FormControl>
-              <FormDescription>Выберите цвет</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='url'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Ссылка</FormLabel>
-              <FormControl>
-                <Input placeholder='Ссылка...' {...field} />
-              </FormControl>
-              <FormDescription>Ссылка на страницу</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Описание</FormLabel>
+                <FormControl>
+                  <Input placeholder='Описание...' {...field} />
+                </FormControl>
+                <FormDescription>Описание акции</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='textColor'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Цвет</FormLabel>
+                <FormControl>
+                  <Input
+                    type='color'
+                    placeholder='...'
+                    {...field}
+                    className='w-20 h-10 rounded-full p-0 border-none ring-0 focus:ring-0'
+                  />
+                </FormControl>
+                <FormDescription>Выберите цвет</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='url'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Ссылка</FormLabel>
+                <FormControl>
+                  <Input placeholder='Ссылка...' {...field} />
+                </FormControl>
+                <FormDescription>Ссылка на страницу</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button type='submit'>Сохранить</Button>
-      </form>
-    </Form>
+          <Button type='submit'>Сохранить</Button>
+        </form>
+      </Form>
+      <div className='w-full flex flex-col gap-4'>
+        <p>Чтобы добавить картинку, нажмите кнопку Обновить</p>
+        <Link
+          href={`/cms/slider_promo/${refId.current}`}
+          className={cn(
+            buttonVariants({ variant: 'default' }),
+            'w-fit justify-start'
+          )}
+        >
+          Обновить
+        </Link>
+      </div>
+    </section>
   )
 }

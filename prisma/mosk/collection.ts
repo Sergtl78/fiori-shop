@@ -6,7 +6,7 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
     slug: 'action',
     sort_order: 'a',
     discount: 10,
-    icon: 'https://test-for-flower.storage.yandexcloud.net/sale_tag.png',
+    icon: 'https://storage.yandexcloud.net/test-for-flower/icons/sale_tag.webp',
     products: {
       connect: [
         { slug: 'coral-sunset' },
@@ -24,7 +24,7 @@ export const mockCollections: Prisma.CollectionCreateInput[] = [
     name: 'Топ продаж',
     slug: 'top-seller',
     sort_order: 'b',
-    icon: 'https://test-for-flower.storage.yandexcloud.net/top_icon.png',
+    icon: 'https://storage.yandexcloud.net/test-for-flower/icons/top_10.webp',
     products: {
       connect: [
         { slug: 'miss-america' },
