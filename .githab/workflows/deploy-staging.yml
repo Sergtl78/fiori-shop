@@ -1,4 +1,4 @@
-name: deploy prod
+name: deploy devsergey
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      
+
   deploy:
     needs: lint
     runs-on: ubuntu-latest
@@ -28,8 +28,8 @@ jobs:
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
           # hostname / IP of the server
-          host: ${{ secrets.PROD_SSH_HOST }}
-          user: ${{ secrets.PROD_SSH_USERNAME }}
-          private_key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
-          host_fingerprint: ${{ secrets.PROD_SSH_FINGERPRINT }}
-          command: source ~/.nvm/nvm.sh; ~/deploy.sh
+          host: ${{ secrets.DEVS_SSH_HOST }}
+          user: ${{ secrets.DEVS_SSH_USERNAME }}
+          private_key: ${{ secrets.DEVS_SSH_PRIVATE_KEY }}
+          host_fingerprint: ${{ secrets.DEVS_SSH_FINGERPRINT }}
+          command: source ~/.nvm/nvm.sh; echo "Hello World"
