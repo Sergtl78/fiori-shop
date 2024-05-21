@@ -32,4 +32,4 @@ jobs:
           user: ${{ secrets.DEVS_SSH_USERNAME }}
           private_key: ${{ secrets.DEVS_SSH_PRIVATE_KEY }}
           host_fingerprint: ${{ secrets.DEVS_SSH_FINGERPRINT }}
-          command: source ~/.nvm/nvm.sh; echo "Hello World"
+          command: source ~/.nvm/nvm.sh; ~/deploy.sh
