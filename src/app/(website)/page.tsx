@@ -19,19 +19,19 @@ export default async function Home() {
           <div className='flex'>
             <CheckIcon className='w-6 h-6 text-secondary' />
             <h3 className='font-serif text-start'>
-              Красивые цветы на любой вкус.
+              Красивые цветы на любой вкус!
             </h3>
           </div>
           <div className='flex '>
             <CheckIcon className='w-6 h-6 text-secondary ' />
             <h3 className='font-serif text-start'>
-              Самые низкие цены в Нижнем Новгороде
+              Самые низкие цены в Нижнем Новгороде!
             </h3>
           </div>
           <div className='flex '>
             <CheckIcon className='w-6 h-6 text-secondary' />
             <h3 className='font-serif text-start'>
-              Индивидуальный подход к каждому клиенту
+              Индивидуальный подход к каждому клиенту!
             </h3>
           </div>
         </div>
