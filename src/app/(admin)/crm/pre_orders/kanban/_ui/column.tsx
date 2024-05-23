@@ -43,7 +43,7 @@ const Column = ({ status, title }: Props) => {
     usePre_orderStore.persist.rehydrate()
   }, [setInitials])
   return (
-    <Card className='w-full h-full min-h-full px-2 '>
+    <Card className='w-full h-full min-h-svh px-2 '>
       <CardHeader
         className={cn(
           'w-full flex text-lg   font-semibold border-b-4  border-t-2 mb-4',

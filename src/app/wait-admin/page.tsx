@@ -1,20 +1,18 @@
 'use client'
 import Logo from '@/components/logo'
-import { Button, buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { logout } from '../(auth)/_lib/actions'
 
 type Props = {}
-
+export const dynamic = 'force-dynamic'
 const WaitAdminPage = (props: Props) => {
   const { data: session } = useSession()
   const router = useRouter()
   const handleSignOut = async () => {
     await logout()
-    router.push('/')
+    //router.push('/login')
   }
   return (
     <section className='container flex flex-col w-full min-h-svh items-center justify-center gap-4 mb-8'>
@@ -25,11 +23,7 @@ const WaitAdminPage = (props: Props) => {
         администратором.
       </p>
       <p>Спасибо за понимание.</p>
-      <div className='w-full flex items-center justify-between max-w-sm'>
-        <Link href='/' className={cn(buttonVariants({ variant: 'outline' }))}>
-          {' '}
-          Вернуться на главную
-        </Link>
+      <div className='w-full flex items-center justify-center max-w-sm'>
         <Button onClick={() => handleSignOut()} variant={'outline'}>
           Выйти
         </Button>

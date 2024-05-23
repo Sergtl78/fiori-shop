@@ -11,6 +11,8 @@ import { EnterIcon } from '@radix-ui/react-icons'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import NavAvatarItem from './nav-avatar-item'
+
+export const dynamic = 'force-dynamic'
 export function AvatarUser() {
   const { data: session } = useSession()
 

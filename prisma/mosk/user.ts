@@ -19,7 +19,7 @@ export const mockUsers: Prisma.UserCreateInput[] = [
     email: 'fiorioptnn@gmail.com',
     password: hashPassword('qwerty'),
     role: 'ADMIN',
-    image: 'https://test-for-flower.storage.yandexcloud.net/avatar/maria.jpg'
+    image: null
   },
 
   {

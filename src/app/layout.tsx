@@ -19,13 +19,13 @@ export default async function RootLayout({
     <html lang='ru' suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-svh bg-background font-sans antialiased',
           roboto.variable,
           mark.variable
         )}
       >
         <Provider>
-          <main className='relative flex min-h-screen flex-1 flex-col font-sans'>
+          <main className='relative flex min-h-svh flex-1 flex-col font-sans'>
             {children}
           </main>
           <Toaster />

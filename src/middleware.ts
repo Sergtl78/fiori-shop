@@ -1,12 +1,36 @@
-export { auth as middleware } from '../auth'
+import { NextResponse } from 'next/server'
+import { auth } from '../auth'
+export default auth(request => {
+  if (request.nextUrl.pathname.startsWith('/') && !request.auth) {
+    return NextResponse.rewrite(new URL('/login', request.url))
+  }
+  if (request.auth?.user.blocked === true) {
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
+  }
 
-// Or like this if you need to do something here.
-// export default auth((req) => {
-//   console.log(req.auth) //  { session: { user: { ... } } }
-// })
+  if (
+    request.nextUrl.pathname.startsWith('/cms' || '/crm') &&
+    request.auth?.user.role !== 'ADMIN' &&
+    request.auth?.user.role !== 'MANAGER'
+  ) {
+    return NextResponse.rewrite(new URL('/', request.url))
+  }
 
-// Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+  if (
+    request.auth?.user.role !== 'ADMIN' &&
+    request.auth?.user.role !== 'MANAGER' &&
+    request.auth?.user.role !== 'USER'
+  ) {
+    if (request.auth?.user.tin) {
+      return NextResponse.rewrite(new URL('/wait-admin', request.url))
+    } else {
+      return NextResponse.rewrite(new URL('/user-update', request.url))
+    }
+  }
+})
+
 export const config = {
-  // matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
-  //matcher: ['/user', '/((?!api|_next/static|_next/image|favicon.ico).*)']
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password).*)'
+  ]
 }

@@ -1,12 +1,15 @@
+import { sendVerificationRequest } from '@/lib/sendVerificationRequest'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import * as bcrypt from 'bcryptjs'
 import type { DefaultSession, NextAuthConfig, User } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
-
 import NextAuth from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
+import Resend from 'next-auth/providers/resend'
+import Vk from 'next-auth/providers/vk'
+import Yandex from 'next-auth/providers/yandex'
 import { z } from 'zod'
 
 const prisma = new PrismaClient()
@@ -45,6 +48,35 @@ const googleConfig = Google({
   },
   allowDangerousEmailAccountLinking: true
 })
+const vkConfig = Vk({
+  profile(profile) {
+    return {
+      name: profile.first_name,
+      email: profile.email,
+      image: profile.photo_100
+    }
+  },
+  allowDangerousEmailAccountLinking: true
+})
+
+const yandexConfig = Yandex({
+  profile(profile) {
+    return {
+      name: profile.first_name,
+      email: profile.default_email,
+      image: `https://avatars.yandex.net/get-yapic/${profile.default_avatar_id}/islands-retina-50`
+    }
+  },
+  allowDangerousEmailAccountLinking: true
+})
+
+const resendConfig = Resend({
+  // If your environment variable is named differently than default
+  apiKey: process.env.AUTH_RESEND_KEY,
+  from: 'info@devsergey.ru',
+  sendVerificationRequest: sendVerificationRequest
+})
+
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
   credentials: {
@@ -69,7 +101,6 @@ const credentialsConfig = CredentialsProvider({
           email
         }
       })
-      console.log('user', user)
       if (!user) {
         throw new Error('User name or password is not correct')
       }
@@ -98,9 +129,16 @@ const config = {
   secret: process.env.AUTH_SECRET || 'any random string',
   session: { strategy: 'jwt' },
 
-  providers: [googleConfig, credentialsConfig],
+  providers: [
+    googleConfig,
+    vkConfig,
+    yandexConfig,
+    credentialsConfig,
+    resendConfig
+  ],
   pages: {
-    signIn: '/login'
+    signIn: '/login',
+    verifyRequest: '/verify_email'
   },
   callbacks: {
     authorized({ request, auth }) {

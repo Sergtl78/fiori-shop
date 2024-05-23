@@ -38,12 +38,8 @@ const Navbar = async () => {
               <NavMenu
                 menu={[
                   {
-                    name: 'CMS',
+                    name: 'Админ',
                     url: '/cms'
-                  },
-                  {
-                    name: 'CRM',
-                    url: '/crm'
                   }
                 ]}
               />

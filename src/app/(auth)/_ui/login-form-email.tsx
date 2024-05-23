@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
+import { IconEmail } from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -15,10 +16,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
-import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { authenticateCredentials } from '../_lib/actions'
+import { authenticateEmail } from '../_lib/actions'
 
 const FormSchema = z.object({
   email: z
@@ -26,34 +26,28 @@ const FormSchema = z.object({
     .min(3, {
       message: 'Email must be at least 3 characters.'
     })
-    .email({ message: 'Wrong email' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters' })
+    .email({ message: 'Wrong email' })
 })
 
 type LoginFormProps = {
   callbackUrl?: string
   errorAuth?: string
 }
-export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
+export function LoginEmailForm({ callbackUrl, errorAuth }: LoginFormProps) {
   const [loginError, setLoginError] = useState<string | undefined>()
   const router = useRouter()
-  const [open, setOpen] = useState(false)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
-      password: ''
+      email: ''
     }
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const loginError = await authenticateCredentials(data)
+    const loginError = await authenticateEmail(data.email)
     setLoginError(loginError)
-    if (!loginError) {
-      router.push(/* callbackUrl ?? */ '/')
-    }
+    console.log('loginError', loginError)
+
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -85,40 +79,9 @@ export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name='password'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <div className='relative h-full w-full'>
-                  <Input
-                    type={open ? 'text' : 'password'}
-                    placeholder='password'
-                    {...field}
-                    className='w-full '
-                  />
-                  {open && (
-                    <EyeOpenIcon
-                      onClick={() => setOpen(!open)}
-                      className='absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 cursor-pointer'
-                    />
-                  )}
-                  {!open && (
-                    <EyeClosedIcon
-                      onClick={() => setOpen(!open)}
-                      className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
-                    />
-                  )}
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         {!!errorAuth && (
-          <p className='text-red-500 bg-red-100 w-full'>Неверные данные</p>
+          <p className='text-red-500 bg-red-100 w-full'>{errorAuth}</p>
         )}
         {!!loginError && (
           <p className='bg-red-100 text-red-600 text-center p-2'>
@@ -130,7 +93,8 @@ export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
           className='w-full cursor-pointer active:scale-y-95'
           type='submit'
         >
-          Войти
+          Войдите с
+          <IconEmail className='w-6 h-6 ml-2  text-primary stroke-1' />
         </Button>
       </form>
     </Form>

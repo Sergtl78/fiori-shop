@@ -6,7 +6,7 @@ import SliderPromo from './_ui/sliders/slider-promo'
 export default async function Home() {
   const slider = await getSlider_promo()
   return (
-    <div className='container flex flex-col w-full   min-h-[70vh] gap-4 '>
+    <div className='container flex flex-col w-full   min-h-svh gap-4 '>
       <div className='flex  md:flex-row w-full items-center justify-center flex-col-reverse'>
         <div className='w-full h-full flex flex-col items-start justify-center md:ml-4 text-center '>
           <h3 className='font-serif text-center md:text-start w-full  mb-4'>

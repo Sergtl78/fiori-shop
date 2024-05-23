@@ -1,7 +1,6 @@
 import { Separator } from '@/components/ui/separator'
 import { auth } from 'auth*'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
 import { UserProfileUpdateForm } from '../(website)/(user)/profile/_ui/form-user-profile-update'
 import { getUserById } from '../(website)/_lib/api/user'
 
@@ -9,9 +8,9 @@ type Props = {}
 
 const UserUpdatePage = async (props: Props) => {
   const session = await auth()
-  if (!session || !session.user || !session.user.id) redirect('/login')
+  if (!session?.user.id) return <p>Loading...</p>
   const user = await getUserById(session.user.id)
-  if (!user) redirect('/login')
+  if (!user) return <p>Loading...</p>
   return (
     <section className='min-h-svh relative container grid md:grid-cols-2 mb-8'>
       <div className='hidden md:flex relative aspect-square max-w-lg items-center justify-center w-full h-full '>

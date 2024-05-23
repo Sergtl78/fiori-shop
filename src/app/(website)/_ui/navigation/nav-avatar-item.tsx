@@ -6,13 +6,16 @@ import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { EnterIcon } from '@radix-ui/react-icons'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 export default function NavAvatarItem(props: Props) {
+  const router = useRouter()
   const { data: session } = useSession()
   const handleSignOut = async () => {
     await logout()
+    router.push('/login')
   }
   return (
     <>

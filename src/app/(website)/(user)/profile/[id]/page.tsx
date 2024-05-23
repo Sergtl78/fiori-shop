@@ -31,7 +31,7 @@ const ProfilePage = async ({ params }: Props) => {
   const collection = await getCollectionBySlug('recommendation')
 
   return (
-    <section className='container w-full min-h-[100lvh]   mt-8'>
+    <section className='container w-full min-h-svh   mt-8'>
       <div className='w-full grid md:grid-cols-4 mb-8'>
         <div className='w-full flex flex-col border-r '>
           <div className='w-full flex flex-row gap-x-4 mb-4'>

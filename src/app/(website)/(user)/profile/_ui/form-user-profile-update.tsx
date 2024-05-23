@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import FormAvatar from '@/app/(admin)/cms/images/_ui/form-avatar'
+import { logout } from '@/app/(auth)/_lib/actions'
 import { ResUser, userUpdate } from '@/app/(website)/_lib/api/user'
 import { Button } from '@/components/ui/button'
 import {
@@ -24,7 +25,6 @@ import {
 } from '@/components/ui/input-otp'
 import { toast } from '@/components/ui/use-toast'
 import { formatPhoneForInput, formatPhoneForSave } from '@/lib/utils'
-import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -92,7 +92,6 @@ export function UserProfileUpdateForm({
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log('data.phone', data.phone)
     try {
       const res = await userUpdate({
         userId,
@@ -113,8 +112,8 @@ export function UserProfileUpdateForm({
     }
   }
   const handleLogOut = async () => {
-    await signOut()
-    router.push('/')
+    await logout()
+    router.push('/login')
   }
 
   return (

@@ -19,7 +19,7 @@ export default async function AuthLayout({
 
   return (
     <>
-      <section className='relative flex min-h-screen flex-1 flex-col font-sans'>
+      <section className='relative flex min-h-svh flex-1 flex-col font-sans'>
         {children}
       </section>
     </>
