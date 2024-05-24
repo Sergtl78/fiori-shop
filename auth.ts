@@ -1,4 +1,3 @@
-import { sendVerificationRequest3 } from '@/lib/authSendRequest'
 import { sendVerificationRequest } from '@/lib/sendVerificationRequest'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
