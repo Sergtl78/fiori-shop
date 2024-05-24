@@ -17,7 +17,6 @@ export async function sendVerificationRequest(params: ParamsType) {
   const { identifier, url } = params
   const host = process.env.NEXT_PUBLIC_SITE_URL
   
-  console.log(url);
 
   const res= await fetch(`${host}/api/send`, {
     cache: 'no-store',
@@ -32,7 +31,6 @@ export async function sendVerificationRequest(params: ParamsType) {
       host
     })
   })
-console.log('res', res.json());
 if (!res.ok)
   throw new Error("Resend error: " + JSON.stringify(await res.json()))
   
