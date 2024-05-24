@@ -75,7 +75,7 @@ export const translateColumnId = (columnId: string) => {
       return 'Товар'
     case 'products':
       return 'Товары'
-    case 'nameProduct':
+    case 'productName ':
       return 'Товар'
     case 'imageProduct':
       return 'Фото'

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { auth } from '../auth'
-export default auth(request => {
+
+
+export default auth((request,_) => {
   if (request.nextUrl.pathname.startsWith('/') && !request.auth) {
     return NextResponse.rewrite(new URL('/login', request.url))
   }
@@ -31,6 +33,6 @@ export default auth(request => {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password|verify_email).*)'
   ]
 }

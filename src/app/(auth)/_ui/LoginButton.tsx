@@ -21,7 +21,7 @@ export function LoginButton({
       }}
     >
       <Button
-        variant={'outline'}
+        variant={'outline_primary'}
         type='submit'
         {...props}
         className='w-full gap-4'

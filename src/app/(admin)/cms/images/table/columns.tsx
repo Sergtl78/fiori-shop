@@ -93,7 +93,7 @@ export const columns: ColumnDef<ResImage>[] = [
     accessorKey: 'updatedAtFormatted',
     header: ({ column }) => <DataTableColumnHeader column={column} />
   },
-  {
+  /* {
     id: 'actions',
     cell: ({ row }) => {
       return (
@@ -104,5 +104,5 @@ export const columns: ColumnDef<ResImage>[] = [
         </Link>
       )
     }
-  }
+  } */
 ]

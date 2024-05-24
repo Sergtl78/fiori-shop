@@ -31,7 +31,7 @@ export async function authenticateCredentials(
   }
 }
 export async function authenticateEmail(
-  //s prevState: string | undefined,
+  // prevState: string | undefined,
   email: string
 ) {
   try {

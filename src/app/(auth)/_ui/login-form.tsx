@@ -126,7 +126,7 @@ export function LoginForm({ callbackUrl, errorAuth }: LoginFormProps) {
           </p>
         )}
         <Button
-          variant={'outline'}
+          variant={'outline_primary'}
           className='w-full cursor-pointer active:scale-y-95'
           type='submit'
         >

@@ -73,7 +73,7 @@ export function LoginEmailForm({ callbackUrl, errorAuth }: LoginFormProps) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='my@email.com' {...field} />
+                <Input placeholder='my@email.com' {...field} className='' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -89,7 +89,7 @@ export function LoginEmailForm({ callbackUrl, errorAuth }: LoginFormProps) {
           </p>
         )}
         <Button
-          variant={'outline'}
+          variant={'outline_primary'}
           className='w-full cursor-pointer active:scale-y-95'
           type='submit'
         >

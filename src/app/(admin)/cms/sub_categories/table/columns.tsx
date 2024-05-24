@@ -89,7 +89,7 @@ export const columns: ColumnDef<ResSubCategory>[] = [
 
       return (
         <Link
-          href={`/columns/categories/${category?.slug}`}
+          href={`/cms/categories/${category?.slug}`}
           className='w-full '
         >
           <Button

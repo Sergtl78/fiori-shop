@@ -1,7 +1,8 @@
+import { sendVerificationRequest3 } from '@/lib/authSendRequest'
 import { sendVerificationRequest } from '@/lib/sendVerificationRequest'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
-import * as bcrypt from 'bcryptjs'
+import * as bcryptjs from 'bcryptjs'
 import type { DefaultSession, NextAuthConfig, User } from 'next-auth'
 import NextAuth from 'next-auth'
 import { JWT } from 'next-auth/jwt'
@@ -74,7 +75,13 @@ const resendConfig = Resend({
   // If your environment variable is named differently than default
   apiKey: process.env.AUTH_RESEND_KEY,
   from: 'info@devsergey.ru',
-  sendVerificationRequest: sendVerificationRequest
+  sendVerificationRequest({
+    identifier,
+    url,
+  }) {
+    sendVerificationRequest({ identifier, url})
+  },
+ 
 })
 
 const credentialsConfig = CredentialsProvider({
@@ -109,7 +116,7 @@ const credentialsConfig = CredentialsProvider({
       //if (!user.password) throw new Error('Please Provide Your Password')
       // check if password is correct
       if (!user.password) throw new Error('Please Provide Your Password')
-      const isPasswordCorrect = await bcrypt.compare(
+      const isPasswordCorrect = await bcryptjs.compare(
         passwordCredentials,
         user.password
       )
@@ -128,7 +135,7 @@ const config = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET || 'any random string',
   session: { strategy: 'jwt' },
-
+  basePath: '/api/auth',
   providers: [
     googleConfig,
     vkConfig,
