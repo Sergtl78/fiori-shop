@@ -16,10 +16,13 @@ export default auth((request, _) => {
   ) {
     return NextResponse.rewrite(new URL('/', request.url))
   }
+  if (!request.auth?.user.role && request.nextUrl.pathname.startsWith('/')) {
+    return NextResponse.rewrite(new URL('/user-update', request.url))
+  }
 
   if (
     request.nextUrl.pathname.startsWith('/') &&
-    (request.auth?.user.role === 'NEW' || !request.auth?.user.role)
+    request.auth?.user.role === 'NEW'
   ) {
     if (request.auth?.user.tin) {
       return NextResponse.rewrite(new URL('/wait-admin', request.url))
