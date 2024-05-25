@@ -74,13 +74,9 @@ const resendConfig = Resend({
   // If your environment variable is named differently than default
   apiKey: process.env.AUTH_RESEND_KEY,
   from: 'info@devsergey.ru',
-  sendVerificationRequest({
-    identifier,
-    url,
-  }) {
-    sendVerificationRequest({ identifier, url})
-  },
- 
+  sendVerificationRequest({ identifier, url }) {
+    sendVerificationRequest({ identifier, url })
+  }
 })
 
 const credentialsConfig = CredentialsProvider({
@@ -112,8 +108,7 @@ const credentialsConfig = CredentialsProvider({
       }
       if (!credentials?.password)
         throw new Error('Please Provide Your Password')
-      //if (!user.password) throw new Error('Please Provide Your Password')
-      // check if password is correct
+
       if (!user.password) throw new Error('Please Provide Your Password')
       const isPasswordCorrect = await bcryptjs.compare(
         passwordCredentials,

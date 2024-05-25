@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '../auth'
 
-
-export default auth((request,_) => {
+export default auth((request, _) => {
   if (request.nextUrl.pathname.startsWith('/') && !request.auth) {
     return NextResponse.rewrite(new URL('/login', request.url))
   }
@@ -19,9 +18,9 @@ export default auth((request,_) => {
   }
 
   if (
-    request.auth?.user.role !== 'ADMIN' &&
-    request.auth?.user.role !== 'MANAGER' &&
-    request.auth?.user.role !== 'USER'
+    request.nextUrl.pathname.startsWith('/') &&
+    request.auth?.user.role !== 'NEW' &&
+    !request.auth?.user.role
   ) {
     if (request.auth?.user.tin) {
       return NextResponse.rewrite(new URL('/wait-admin', request.url))
