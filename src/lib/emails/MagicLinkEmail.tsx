@@ -39,7 +39,7 @@ export function MagicLinkEmail({ url, host }: MagicLinkEmailProps) {
           }}
         >
           <Img
-            src={`https://devsergey.ru/logo2.svg`}
+            src={`https://storage.yandexcloud.net/test-for-flower/fiori2.png`}
             width='100'
             height='100'
             alt='Fiori'

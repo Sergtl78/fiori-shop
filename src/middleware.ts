@@ -17,7 +17,10 @@ export default auth((request, _) => {
     return NextResponse.rewrite(new URL('/', request.url))
   }
   if (!request.auth?.user.role) {
-    return NextResponse.rewrite(new URL('/user-update', request.url))
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
+  }
+  if (request.auth?.user.role === 'NEW') {
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
   }
 })
 
@@ -27,3 +30,4 @@ export const config = {
   ]
 }
 //проверить
+//https://devsergey.ru/api/auth/callback/resend?callbackUrl=https%3A%2F%2Fdevsergey.ru%2Fupdate_user&token=be4614c4e81131e1fb04fdc3c6ad913011db981e9470311419247bd74302ef3f&email=sergtl78%40gmail.com
