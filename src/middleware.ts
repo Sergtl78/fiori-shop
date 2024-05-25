@@ -2,10 +2,6 @@ import { NextResponse } from 'next/server'
 import { auth } from '../auth'
 
 export default auth((request, _) => {
-  if (!request.auth) {
-    return NextResponse.rewrite(new URL('/login', request.url))
-  }
-
   if (request.auth?.user.blocked === true) {
     return NextResponse.rewrite(new URL('/wait-admin', request.url))
   }
