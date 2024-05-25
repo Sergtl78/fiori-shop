@@ -1,23 +1,17 @@
+import { NextResponse } from 'next/server'
 import { auth } from '../auth'
 
 export default auth((request, _) => {
   if (!request.auth) {
-    const url = request.url.replace(request.nextUrl.pathname, '/login')
-    return Response.redirect(url)
-  }
-  if (!request.auth?.user.role) {
-    const url = request.url.replace(request.nextUrl.pathname, '/wait-admin')
-    return Response.redirect(url)
+    return NextResponse.rewrite(new URL('/login', request.url))
   }
 
   if (request.auth?.user.blocked === true) {
-    const url = request.url.replace(request.nextUrl.pathname, '/wait-admin')
-    return Response.redirect(url)
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
   }
 
   if (request.auth?.user.role === 'NEW') {
-    const url = request.url.replace(request.nextUrl.pathname, '/wait-admin')
-    return Response.redirect(url)
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
   }
 
   if (
@@ -25,8 +19,10 @@ export default auth((request, _) => {
     request.auth?.user.role !== 'ADMIN' &&
     request.auth?.user.role !== 'MANAGER'
   ) {
-    const url = request.url.replace(request.nextUrl.pathname, '/')
-    return Response.redirect(url)
+    return NextResponse.rewrite(new URL('/', request.url))
+  }
+  if (!request.auth?.user.role) {
+    return NextResponse.rewrite(new URL('/wait-admin', request.url))
   }
 })
 
