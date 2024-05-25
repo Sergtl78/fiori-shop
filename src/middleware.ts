@@ -26,6 +26,6 @@ export const config = {
   matcher: [
     '/cms',
     '/crm',
-    '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password|verify_email).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password|verify_email|wait-admin).*)'
   ]
 }

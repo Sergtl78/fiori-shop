@@ -8,7 +8,6 @@ import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
-import Vk from 'next-auth/providers/vk'
 import Yandex from 'next-auth/providers/yandex'
 import { z } from 'zod'
 
@@ -48,7 +47,7 @@ const googleConfig = Google({
   },
   allowDangerousEmailAccountLinking: true
 })
-const vkConfig = Vk({
+/* const vkConfig = Vk({
   profile(profile) {
     return {
       name: profile.first_name,
@@ -58,7 +57,7 @@ const vkConfig = Vk({
   },
   checks: ['none'],
   allowDangerousEmailAccountLinking: true
-})
+}) */
 
 const yandexConfig = Yandex({
   profile(profile) {
@@ -68,6 +67,7 @@ const yandexConfig = Yandex({
       image: `https://avatars.yandex.net/get-yapic/${profile.default_avatar_id}/islands-retina-50`
     }
   },
+
   allowDangerousEmailAccountLinking: true
 })
 
@@ -133,7 +133,7 @@ const config = {
   basePath: '/api/auth',
   providers: [
     googleConfig,
-    vkConfig,
+    /* vkConfig, */
     yandexConfig,
     credentialsConfig,
     resendConfig
