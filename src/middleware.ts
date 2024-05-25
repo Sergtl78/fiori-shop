@@ -37,3 +37,4 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico|fiori_square.svg|login|login_password|verify_email).*)'
   ]
 }
+//проверить
