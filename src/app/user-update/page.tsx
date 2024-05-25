@@ -11,6 +11,7 @@ const UserUpdatePage = async (props: Props) => {
   if (!session?.user.id) return <p>Loading...</p>
   const user = await getUserById(session.user.id)
   if (!user) return <p>Loading...</p>
+
   return (
     <section className='min-h-svh relative container grid md:grid-cols-2 mb-8'>
       <div className='hidden md:flex relative aspect-square max-w-lg items-center justify-center w-full h-full '>
