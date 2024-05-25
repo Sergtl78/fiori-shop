@@ -56,6 +56,7 @@ const vkConfig = Vk({
       image: profile.photo_100
     }
   },
+  checks: ['none'],
   allowDangerousEmailAccountLinking: true
 })
 
