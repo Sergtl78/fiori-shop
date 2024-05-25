@@ -19,8 +19,7 @@ export default auth((request, _) => {
 
   if (
     request.nextUrl.pathname.startsWith('/') &&
-    request.auth?.user.role !== 'NEW' &&
-    !request.auth?.user.role
+    (request.auth?.user.role === 'NEW' || !request.auth?.user.role)
   ) {
     if (request.auth?.user.tin) {
       return NextResponse.rewrite(new URL('/wait-admin', request.url))
