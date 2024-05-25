@@ -18,7 +18,7 @@ export default auth((request, _) => {
     return NextResponse.rewrite(new URL('/', request.url))
   }
   if (!request.auth?.user.role) {
-    return NextResponse.rewrite(new URL('/wait-admin', request.url))
+    return NextResponse.rewrite(new URL('/login', request.url))
   }
 })
 
