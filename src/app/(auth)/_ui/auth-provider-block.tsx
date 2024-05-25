@@ -8,7 +8,7 @@ const AuthProviderBlock = (props: Props) => {
     <div className='flex flex-col w-full items-center gap-2'>
       <LoginEmailForm />
       <LoginButton className='w-full' provider='google' />
-      <LoginButton className='w-full' provider='vk' />
+      {/* <LoginButton className='w-full' provider='vk' /> */}
       <LoginButton className='w-full' provider='yandex' />
     </div>
   )
