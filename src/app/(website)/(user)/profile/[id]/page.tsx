@@ -38,7 +38,7 @@ const ProfilePage = async ({ params }: Props) => {
             <Avatar className='w-20 h-20'>
               <AvatarImage
                 src={user.avatar || user.image || ''}
-                alt={user?.name}
+                alt={user?.name || 'Фото'}
               />
               <AvatarFallback>AV</AvatarFallback>
             </Avatar>
