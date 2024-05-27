@@ -25,7 +25,26 @@ const SectionForm = ({ children, typeForm, callbackUrl }: Props) => {
         </h3>
         {children}
 
-        <div className='flex flex-row gap-2 mb-4'>
+        {typeForm === 'login' ? (
+          <div className='text-sm text-center flex w-full'>
+            {/*  <span>Войти с паролем —</span>{' '} */}
+            <Link className='flex w-full justify-end' href='/login_password'>
+              <Button variant={'outline_primary'} className='w-full'>
+                Войти с паролем
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <div className='text-sm text-center flex w-full'>
+            {/*  <span>Войти  —</span>{' '} */}
+            <Link className='flex w-full justify-end' href='/login'>
+              <Button variant={'outline_primary'} className='w-full'>
+                Войти или зарегистрироваться
+              </Button>
+            </Link>
+          </div>
+        )}
+        <div className='flex flex-row gap-2 mt-4'>
           <Checkbox checked={true} />
           <div className='text-sm'>
             <span>Соглашаюсь с </span>{' '}
@@ -35,21 +54,6 @@ const SectionForm = ({ children, typeForm, callbackUrl }: Props) => {
             <span> торговой площадкой и возврата.</span>
           </div>
         </div>
-        {typeForm === 'login' ? (
-          <div className='text-sm text-center flex w-full'>
-            {/*  <span>Войти с паролем —</span>{' '} */}
-            <Link className='flex w-full justify-end' href='/login_password'>
-              <Button variant={'link'}>Войти с паролем</Button>
-            </Link>
-          </div>
-        ) : (
-          <div className='text-sm text-center flex w-full'>
-            {/*  <span>Войти  —</span>{' '} */}
-            <Link className='flex w-full justify-end' href='/login'>
-              <Button variant={'link'}>Войти или зарегистрироваться</Button>
-            </Link>
-          </div>
-        )}
       </div>
     </div>
   )

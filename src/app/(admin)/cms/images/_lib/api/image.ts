@@ -77,8 +77,12 @@ export const getImageByName = async (name: string) => {
   return res
 }
 export const createImage = async (data: Prisma.ImageCreateInput) => {
-  const res = await prisma.image.create({
-    data
+  const res = await prisma.image.upsert({
+    where: {
+      name: data.name
+    },
+    create: data,
+    update: data
   })
   revalidatePath('/(admin)/cms', 'layout')
   return res

@@ -17,7 +17,7 @@ type Props = {
 
 export function SliderCollection({ data }: Props) {
   return (
-    <section className='w-full container mb-4 gap-6 '>
+    <section className='w-full flex flex-col mb-4 gap-6 '>
       <h2>{data?.name}</h2>
       <Carousel
         opts={{
@@ -38,7 +38,7 @@ export function SliderCollection({ data }: Props) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className='md:-left-12 -left-8 ' />
+        <CarouselPrevious className=' md:-left-12 -left-8 ' />
         <CarouselNext className='md:-right-12 -right-8' />
       </Carousel>
     </section>

@@ -26,7 +26,7 @@ export const productsCreate = async ({
   initialState,
   formData
 }: ProductsCreateArs) => {
-  const files = (await formData.getAll('file')) as File[]
+  const files = formData.getAll('file') as File[]
 
   if (files.length === 0) {
     return { status: 'error', message: 'Please select a file.' }

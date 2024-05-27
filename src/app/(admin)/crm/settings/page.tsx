@@ -1,4 +1,5 @@
 import FormProductUpload from './_ui/form-product-upload'
+import FormUploadFile from './_ui/form-upload-file'
 
 function SettingPage() {
   return (
@@ -6,6 +7,7 @@ function SettingPage() {
       <h3>Загрузить товары из файла</h3>
 
       <FormProductUpload userId={''} />
+      <FormUploadFile />
     </div>
   )
 }

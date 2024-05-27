@@ -166,7 +166,9 @@ const FormImage = ({ className, arrNames }: FormImageProps) => {
               >
                 <Cross2Icon className='w-5 h-5 ' />
               </Button>
-              <p className='mt-2  text-[12px] font-medium'>{file.name}</p>
+              <p className='absolute -bottom-8 left-0 mt-2  text-[12px] font-medium'>
+                {file.name}
+              </p>
             </li>
           ))}
         </ul>

@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation'
 import ButtonCreateUserShop from '../_ui/button-create-user-shop'
 import ButtonUpdateUser from '../_ui/button-update-user'
 import ShopCard from '../_ui/shop-card'
+import UserOrderBlock from '../_ui/user-order-block'
 
 export async function generateStaticParams() {
   const users = await getUsers()
@@ -18,9 +19,10 @@ export async function generateStaticParams() {
 }
 type Props = {
   params: { id: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-const ProfilePage = async ({ params }: Props) => {
+const ProfilePage = async ({ params, searchParams }: Props) => {
   const session = await auth()
   if (!session || !session.user) redirect('/login')
 
@@ -30,10 +32,14 @@ const ProfilePage = async ({ params }: Props) => {
   if (!user) redirect('/login')
   const collection = await getCollectionBySlug('recommendation')
 
+  const page = typeof searchParams?.page === 'string' ? searchParams.page : '1'
+  const pageSize =
+    typeof searchParams?.pageSize === 'string' ? searchParams.pageSize : '2'
+
   return (
-    <section className='container w-full min-h-svh   mt-8'>
-      <div className='w-full grid md:grid-cols-4 mb-8'>
-        <div className='w-full flex flex-col border-r '>
+    <section className='container flex flex-col w-full min-h-svh   mt-10'>
+      <div className='w-full  flex flex-col md:flex-row gap-6 mb-8'>
+        <div className='md:w-1/4 w-full flex flex-col border-r '>
           <div className='w-full flex flex-row gap-x-4 mb-4'>
             <Avatar className='w-20 h-20'>
               <AvatarImage
@@ -66,7 +72,9 @@ const ProfilePage = async ({ params }: Props) => {
           </section>
         </div>
 
-        <div className='w-full flex md:col-span-3 '></div>
+        <div className='w-full flex flex-1 '>
+          <UserOrderBlock userId={user.id} page={page} pageSize={pageSize} />
+        </div>
       </div>
       {collection && <SliderCollection data={collection} />}
     </section>

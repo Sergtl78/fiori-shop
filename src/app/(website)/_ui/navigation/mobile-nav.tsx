@@ -13,23 +13,23 @@ type MobileNavProps = {
 
 const MobileNav = ({ children }: MobileNavProps) => {
   return (
-    <div className='fixed bottom-0 left-0 z-50 w-full border-t md:hidden'>
-      <div className='grid grid-cols-6 h-20 w-full items-center justify-between px-4 py-4 bg-background'>
-        <Link href='/' className='flex items-center justify-center'>
+    <div className='fixed bottom-0 left-0 z-50 w-full border-t md:hidden '>
+      <div className='flex flex-row h-20 w-full items-center justify-between  bg-background'>
+        <Link href='/' className='flex w-full items-center justify-center'>
           <HomeDrawer />
         </Link>
-        <div className='flex items-center justify-center'>
+        <div className='flex w-full items-center justify-center'>
           <MenuDrawer />
         </div>
-        <div className='flex items-center justify-center'>
+        <div className='flex w-full items-center justify-center'>
           <FiltersDrawer />
         </div>
-        <div className='flex items-center justify-center'>
+        <div className='flex w-full items-center justify-center'>
           <CartItemBadge>
             <CartDrawer />
           </CartItemBadge>
         </div>
-        <div className='flex col-span-2 items-center justify-center'>
+        <div className='flex w-full items-center justify-center'>
           <AvatarUser />
         </div>
       </div>

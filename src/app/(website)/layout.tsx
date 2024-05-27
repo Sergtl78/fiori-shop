@@ -18,13 +18,13 @@ export default async function WebsiteLayout({
   const session = await auth()
 
   return (
-    <>
+    <main className='relative flex min-h-svh flex-1 flex-col font-sans'>
       <Navbar />
-      <section className='relative flex min-h-svh flex-1 flex-col font-sans'>
-        {children}
-      </section>
+
+      {children}
+
       <Footer />
       <MobileNav />
-    </>
+    </main>
   )
 }

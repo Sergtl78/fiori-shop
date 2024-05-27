@@ -24,7 +24,6 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   const slugs = table.getSelectedRowModel().flatRows.map(row => {
     const item: any = row.original
-    console.log('item', item)
     return { id: (item as { id: string }).id }
   })
   return (

@@ -65,7 +65,7 @@ export async function uploadFileMulti(
         })
       }
     }
-    revalidatePath('/')
+    revalidatePath('/', 'layout')
     return { status: 'success', message: 'Файлы успешно загружены.' }
   } catch (error) {
     return {
