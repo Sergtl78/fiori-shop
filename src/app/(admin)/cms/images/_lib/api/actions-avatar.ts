@@ -47,7 +47,7 @@ export async function uploadAvatar(prevState: StateForm, formData: FormData) {
     console.log('file', files[0])
 
     if (files.length === 0) {
-      return { status: 'error', message: 'Please select a file.' }
+      return { status: 'error', message: 'Пожалуйся выберите файл.' }
     }
 
     const buffer = Buffer.from(await files[0].arrayBuffer())
@@ -62,9 +62,9 @@ export async function uploadAvatar(prevState: StateForm, formData: FormData) {
       })
     }
 
-    revalidatePath('/')
-    return { status: 'success', message: 'File has been upload.' }
+    revalidatePath('/', 'layout')
+    return { status: 'success', message: 'файл успешно загружен.' }
   } catch (error) {
-    return { status: 'error', message: 'Failed to upload file.' }
+    return { status: 'error', message: 'файл не загружен.' }
   }
 }

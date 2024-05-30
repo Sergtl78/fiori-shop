@@ -1,14 +1,16 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
+import { StatusDelivey } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { registerDelivery } from '../_lib/api/deliveries'
 
 type Props = {
   deliveryId: string
+  statusDelivery: StatusDelivey
 }
 
-const ButtonRegisterDelivery = ({ deliveryId }: Props) => {
+const ButtonRegisterDelivery = ({ deliveryId, statusDelivery }: Props) => {
   const router = useRouter()
   const handleRegister = async () => {
     try {
@@ -27,7 +29,11 @@ const ButtonRegisterDelivery = ({ deliveryId }: Props) => {
     }
   }
   return (
-    <Button className='w-fit' onClick={() => handleRegister()}>
+    <Button
+      disabled={statusDelivery === 'REGISTERED'}
+      className='w-fit'
+      onClick={() => handleRegister()}
+    >
       Оприходовать
     </Button>
   )

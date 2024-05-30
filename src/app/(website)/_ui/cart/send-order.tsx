@@ -138,7 +138,9 @@ const SendOrder = (props: Props) => {
       {isRender && (
         <CardFooter className='flex flex-col gap-2'>
           <Button
-            disabled={loading || countItem === 0 || !shopId}
+            disabled={
+              loading || countItem === 0 || !shopId || !session?.user?.tin
+            }
             onClick={() => handleCreateOrder()}
             className='w-full flex items-center justify-center gap-4'
           >

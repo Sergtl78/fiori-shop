@@ -1,6 +1,6 @@
 import ButtonBack from '@/components/button-back'
 import { getImagesAdmin } from '../_lib/api/image'
-import FormImage from '../_ui/form-image'
+import FormImage from '../_ui/form-images'
 
 type Props = {}
 

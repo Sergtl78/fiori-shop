@@ -24,6 +24,7 @@ type Props = {
 const CustomerPage = async ({ params }: Props) => {
   const user = await getUserById(params.id)
   if (!user) return <div>404 Не найден пользователь</div>
+  console.log('user', user)
 
   return (
     <section className='container w-full min-h-svh   mt-8'>

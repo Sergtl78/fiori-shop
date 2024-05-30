@@ -102,7 +102,6 @@ export function UserProfileUpdateForm({
         variant: 'success',
         title: 'Информация создана.'
       })
-      router.push('/')
     } catch (error) {
       console.log('error in userUpdate', error)
       return toast({

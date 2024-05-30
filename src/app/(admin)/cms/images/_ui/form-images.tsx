@@ -99,7 +99,7 @@ const FormImage = ({ className, arrNames }: FormImageProps) => {
         title: response?.message,
         variant: 'success'
       })
-    } else {
+    } else if (response?.status === 'error') {
       setUploading(false)
       return toast({
         title: response?.message,

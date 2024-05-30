@@ -5,26 +5,7 @@ import prisma from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
 import { Prisma, Status } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
-
-const ordersInclude = {
-  User: { select: { name: true, lastName: true, id: true } },
-  Shop: true,
-  order_items: {
-    select: {
-      Product: {
-        select: {
-          name: true,
-          slug: true,
-          min_quantity: true,
-          id: true,
-          price: true,
-          Category: { select: { name: true } }
-        }
-      },
-      quantityProduct: true
-    }
-  }
-} satisfies Prisma.OrderInclude
+import { ordersInclude } from './order-include'
 
 type ResOrder = Prisma.OrderGetPayload<{
   include: typeof ordersInclude
@@ -124,4 +105,30 @@ export const addOrderStatusCancelled = async (orderId: string) => {
   } catch (error) {
     console.log('addStatusCancelled error', error)
   }
+}
+
+
+const userInclude = {
+  shops: true
+} satisfies Prisma.UserInclude
+
+export type ResUserForOrder = Prisma.UserGetPayload<{
+  include: typeof userInclude
+}> & {
+  fullName: string
+}
+export const getUsersForOrders = async () => {
+  const res = await prisma.user.findMany({
+    where: {
+      role: 'USER'
+    },
+    include: userInclude
+  })
+  return res.map(user => {
+    return {
+      ...user,
+      id: user.id,
+      fullName: user.name + ' ' + user.lastName
+    }
+  })
 }

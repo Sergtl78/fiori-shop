@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import FormAvatar from '@/app/(admin)/cms/images/_ui/form-avatar'
 import { ResUser, userUpdate } from '@/app/(website)/_lib/api/user'
 import { Button } from '@/components/ui/button'
 import {
@@ -122,7 +121,7 @@ export function UserProfileUpdateFormCrm({
 
   return (
     <>
-      <FormAvatar userId={userId} userAvatar={user?.avatar || user?.image} />
+      {/*  <FormAvatar userId={userId} userAvatar={user?.avatar} /> */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='w-full  '>
           <div className=' flex w-full flex-col gap-4'>

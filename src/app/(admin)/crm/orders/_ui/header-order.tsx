@@ -45,7 +45,11 @@ const HeaderOrder = ({ order }: Props) => {
 
         <div className='flex items-center justify-between '>
           <p>Наименований: </p>
-          <p className='font-bold'>{order.total_items} </p>
+          <p className='font-bold'>{order.order_items.length} </p>
+        </div>
+        <div className='flex items-center justify-between '>
+          <p>Упаковок: </p>
+          <p className='font-bold'>{order.total_items} шт. </p>
         </div>
         <div className='flex items-center justify-between '>
           <p>Общее количество: </p>
@@ -59,6 +63,10 @@ const HeaderOrder = ({ order }: Props) => {
         <div className='flex items-center justify-between '>
           <p>Заказчик: </p>
           <p>{`${order.User?.name} ${order.User?.lastName}`}</p>
+        </div>
+        <div className='flex items-center justify-between '>
+          <p>Персональная скидка: </p>
+          <p>{order.User?.personalDiscount} %</p>
         </div>
         <div className='flex items-center justify-between '>
           <p>Магазин: </p>

@@ -1,5 +1,5 @@
 import ButtonBack from '@/components/button-back'
-import FormImage from '../../images/_ui/form-image'
+import FormImage from '../../images/_ui/form-images'
 import { CreateProductForm } from '../_ui/form-product-create'
 
 type Props = {}

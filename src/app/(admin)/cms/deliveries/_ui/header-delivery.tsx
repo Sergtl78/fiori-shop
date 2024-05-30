@@ -1,4 +1,5 @@
 'use client'
+import { translateStatus } from '@/app/(admin)/_lib/helpers/translate-status'
 import {
   Dialog,
   DialogContent,
@@ -26,7 +27,7 @@ const HeaderDelivery = ({ delivery }: Props) => {
           </DialogTrigger>
         </div>
         <p>дата: {formatDate(delivery.dateDelivery)}</p>
-        <p>статус: {delivery.statusDelivery}</p>
+        <p>статус: {translateStatus(delivery.statusDelivery)}</p>
 
         <DialogContent className='sm:max-w-[425px]'>
           <DialogHeader>

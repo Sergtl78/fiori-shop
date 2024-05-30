@@ -40,7 +40,7 @@ const DeliveryPage = async ({ params }: Props) => {
           deleteFn={deleteDelivery_item}
         />
       </section>
-      <ButtonRegisterDelivery deliveryId={delivery.id} />
+      <ButtonRegisterDelivery deliveryId={delivery.id}  statusDelivery={delivery.statusDelivery}/>
     </div>
   )
 }
